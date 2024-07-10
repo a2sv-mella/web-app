@@ -10,11 +10,11 @@ export const navbarLinks = [
 export const forDocs = [
   {
     title: "Overview",
-    description: "This document covers how you can integrate the Dashboard to operate your Chapa’s account.To access Chapa’s dashboard, you must first create an account, which Chapa will verify by sending an email to the address you have given. If you have not received an email within a few minutes, make sure it is the correct address. Look in your junk mail or spam folder to see if your confirmation email was delivered to that folder instead of your email inbox."
+    description: "This document covers how you can integrate the Dashboard to operate your Mella’s account.To access Mella’s dashboard, you must first create an account, which Mella will verify by sending an email to the address you have given. If you have not received an email within a few minutes, make sure it is the correct address. Look in your junk mail or spam folder to see if your confirmation email was delivered to that folder instead of your email inbox."
   },
   {
     title: "Navigating through the Dashboard",
-    description: "mella's dashboard enables a user interface for you to operate and customize your account. It has been organized in a manner that is the best ideal for productivity. The Dashboard can be used to manage your payments and refunds, handle disputes and more. It can also be used to perform specific actions, such as cancelling a subscription without needing the API — making the dashboard useful when running a business. Home provides information on the performance of the business offering an in-depth insight on your activities. As it uses a wide range of analytics, any activity that may require you to take a quick action, such as identification verification, will be shown in Home."
+    description: "Mella's dashboard enables a user interface for you to operate and customize your account. It has been organized in a manner that is the best ideal for productivity. The Dashboard can be used to manage your payments and refunds, handle disputes and more. It can also be used to perform specific actions, such as cancelling a subscription without needing the API — making the dashboard useful when running a business. Home provides information on the performance of the business offering an in-depth insight on your activities. As it uses a wide range of analytics, any activity that may require you to take a quick action, such as identification verification, will be shown in Home."
   },
   {
     title: "Transaction reports",
