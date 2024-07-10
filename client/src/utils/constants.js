@@ -48,11 +48,11 @@ export const aboutCards = [
 export const aboutPara = [
   {
     title: "Mella's Prime Focus",
-    description: "Established in 2020 and headquartered in Addis Ababa, Ethiopia by a team of home-grown engineers, researchers, and entrepreneurs. Chapa is an Ethiopian Financial Service and Data Engineering Company. The inevitable increase in global trade which has been visibly troubled by inconvenient payment methods served as the strongest initiative behind the establishment of Chapa."
+    description: "Established in 2024 and headquartered in Addis Ababa, Ethiopia by a team of home-grown engineers, researchers, and entrepreneurs. Mella is an Ethiopian Financial Service and Data Engineering Company. The inevitable increase in global trade which has been visibly troubled by inconvenient payment methods served as the strongest initiative behind the establishment of Mella."
   },
   {
     title: "Mella's Sense of Duty",
-    description: "Chapa stands firmly on its foundational morals and values, which drive its mission. The company is committed to upholding the security and privacy of our customers, ensuring their trust remains paramount. Moreover, the spirit of loyalty extends not only within the team but also towards all external parties. Lastly, the pursuit of quality remains a core principle guiding Chapa's endeavors",
+    description: "Mella stands firmly on its foundational morals and values, which drive its mission. The company is committed to upholding the security and privacy of our customers, ensuring their trust remains paramount. Moreover, the spirit of loyalty extends not only within the team but also towards all external parties. Lastly, the pursuit of quality remains a core principle guiding Mellas's endeavors",
   }
 ]
 
