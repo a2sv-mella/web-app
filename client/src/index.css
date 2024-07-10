@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 /* ============= GLOBAL CSS =============== */
 
 *,
@@ -15,8 +18,8 @@ html {
 /*16px*/
 
 :root {
-  /* colors */
-  --primary-50: #e0ffea;
+  /* green colors */
+  /* --primary-50: #e0ffea;
   --primary-100: #b3e1cc;
   --primary-200: #80e197;
   --primary-300: #4de160;
@@ -25,7 +28,18 @@ html {
   --primary-600: #1ae130;
   --primary-700: #00e110;
   --primary-800: #00e616;
-  --primary-900: #00b30d;
+  --primary-900: #00b30d; */
+  /* blue colors */
+  --primary-50: #dbe9f6;
+  --primary-100: #b3d4ed;
+  --primary-200: #8abfe4;
+  --primary-300: #2597ee;
+  --primary-400: #3591dd;
+  --primary-500: #187ad6;
+  --primary-600: #1e6cc2;
+  --primary-700: #0f63d1;
+  --primary-800: #003fa2;
+  --primary-900: #002b7d;
 
   /* grey */
   --grey-50: #f8fafc;
@@ -135,27 +149,6 @@ h5 {
   /* Tiny heading */
 }
 
-/* BIGGER FONTS */
-/* h1 {
-  font-size: clamp(3rem, 6vw, 6rem);
-}
-
-h2 {
-  font-size: clamp(2.5rem, 5vw, 5rem);
-}
-
-h3 {
-  font-size: clamp(2rem, 4vw, 4rem);
-}
-
-h4 {
-  font-size: clamp(1.5rem, 3vw, 3rem);
-}
-
-h5 {
-  font-size: clamp(1rem, 2vw, 2rem);
-}
- */
 
 .text {
   margin-bottom: 1.5rem;
@@ -264,7 +257,7 @@ button:disabled {
 .form-label {
   display: block;
   font-size: var(--small-text);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.25rem;
   text-transform: capitalize;
   letter-spacing: var(--letter-spacing);
   line-height: 1.5;
@@ -289,7 +282,15 @@ button:disabled {
 
 .form-row {
   margin-bottom: 1rem;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
 }
+
+.form-row-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 
 .form-textarea {
   height: 7rem;

@@ -1,0 +1,11 @@
+export { default as About } from "./About";
+export { default as Contact } from "./Contact";
+export { default as Demos } from "./Demos";
+export { default as Docs } from "./Docs";
+export { default as Error } from "./Error";
+export { default as HomeLayout } from "./HomeLayout";
+export { default as Landing } from "./Landing";
+export { default as Login } from "./Login";
+export { default as Pricing } from "./Pricing";
+export { default as Register } from "./Register";
+export { default as Services } from "./Services";
