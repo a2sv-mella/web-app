@@ -4,4 +4,5 @@ export { default as HomePageNavbar } from "./HomePageNavbar";
 export {default as ServicesBody} from "./ServicesBody";
 export {default as PricingBody} from "./PricingBody";
 export {default as DemoBody} from "./DemoBody";
+export {default as AboutBody} from "./Aboutbody";
 
