@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 /* ============= GLOBAL CSS =============== */
 
 *,
@@ -15,8 +18,8 @@ html {
 /*16px*/
 
 :root {
-  /* colors */
-  --primary-50: #e0ffea;
+  /* green colors */
+  /* --primary-50: #e0ffea;
   --primary-100: #b3e1cc;
   --primary-200: #80e197;
   --primary-300: #4de160;
@@ -25,7 +28,18 @@ html {
   --primary-600: #1ae130;
   --primary-700: #00e110;
   --primary-800: #00e616;
-  --primary-900: #00b30d;
+  --primary-900: #00b30d; */
+  /* blue colors */
+  --primary-50: #dbe9f6;
+  --primary-100: #b3d4ed;
+  --primary-200: #8abfe4;
+  --primary-300: #2597ee;
+  --primary-400: #3591dd;
+  --primary-500: #187ad6;
+  --primary-600: #1e6cc2;
+  --primary-700: #0f63d1;
+  --primary-800: #003fa2;
+  --primary-900: #002b7d;
 
   /* grey */
   --grey-50: #f8fafc;

@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { navbarLinks } from "../utils/constants";
 const HomePageNavbar = ({ location }) => {
-
   return (
       <nav>
         {/* <img src={logo} alt="Mella Logo" className="logo" /> */}
