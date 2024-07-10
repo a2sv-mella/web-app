@@ -1,6 +1,6 @@
 import Wrapper from "../assets/wrappers/LandingPage";
 import { useLocation } from "react-router-dom";
-import { HomePageNavbar } from "../components";
+import { HomePageNavbar, AboutBody } from "../components";
 const About = () => {
   const location = useLocation();
 
@@ -8,7 +8,7 @@ const About = () => {
     <Wrapper>
       <HomePageNavbar location={location} />
       <div className="container page">
-        <h1> About</h1>
+        <AboutBody />
       </div>
     </Wrapper>
   );
