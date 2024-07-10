@@ -34,6 +34,12 @@ const Wrapper = styled.section`
     }
     margin-bottom: 1.5rem;
   }
+  
+  d {
+    line-height: 2;
+    color: var(--text-secondary-color);
+    margin-bottom: 1.5rem;
+  }
   p {
     line-height: 2;
     color: var(--text-secondary-color);
