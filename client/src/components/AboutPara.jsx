@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 const AboutPara = ({ title, description }) => {
   return (
-    <div className="flex flex-col items-center space-y-4 m-5">
-      <div className="text-center">
+    <div className="flex flex-col text-center justify-center mx-auto w-[90%]">
+      <div className="">
         <h3 className="text-3xl font-bold mb-4">{title}</h3>
-        <p>{description}</p>
+        <d>{description}</d>
       </div>
     </div>
   );

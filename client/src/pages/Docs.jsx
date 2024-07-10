@@ -11,9 +11,6 @@ const Docs = () => {
     <Wrapper>
       <HomePageNavbar location={location} />
       <div className = "m-10">
-        <div className = "mr-10 h-full pr-5">
-        
-        </div>
         <div className="flex flex-col text-center justify-center mx-auto w-[90%]">
           {forDocs.map((cardData, index) => (
             <div className="mb-10">
