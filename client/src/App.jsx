@@ -1,5 +1,17 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { HomeLayout, Error, Landing, Login, Register } from "./pages";
+import {
+  About,
+  Contact,
+  Demos,
+  Docs,
+  Error,
+  HomeLayout,
+  Landing,
+  Login,
+  Pricing,
+  Register,
+  Services,
+} from "./pages";
 import { action as loginAction } from "./pages/Login";
 import { action as registerAction } from "./pages/Register";
 
@@ -12,6 +24,30 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Landing />,
+      },
+      {
+        path: "about",
+        element: <About />,
+      },
+      {
+        path: "contact",
+        element: <Contact />,
+      },
+      {
+        path: "demo",
+        element: <Demos />,
+      },
+      {
+        path: "pricing",
+        element: <Pricing />,
+      },
+      {
+        path: "services",
+        element: <Services />,
+      },
+      {
+        path: "docs",
+        element: <Docs />,
       },
       {
         path: "login",

@@ -55,6 +55,11 @@ const Wrapper = styled.section`
     padding: 0.7rem 0.9rem;
     background-color: var(--primary-300);
   }
+  .top-btn-inactive {
+    padding: 0.7rem 0.9rem;
+    background-color: var(--grey-300);
+  }
+
   .menu-button {
     display: none;
   }
