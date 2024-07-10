@@ -6,7 +6,7 @@ export default function Demo(){
     <Wrapper>
         <HomePageNavbar location={location} />
         <div className="container page">
-            Demo
+            <h1>Demonstration</h1>
         </div>
     </Wrapper> 
     )
