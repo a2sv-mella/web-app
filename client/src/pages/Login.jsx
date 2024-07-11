@@ -1,11 +1,13 @@
 import {
   Link,
   Form,
+  redirect,
   useNavigation,
   useActionData,
 } from "react-router-dom";
 import Wrapper from "../assets/wrappers/RegisterAndLoginPage";
 import { FormRow, Logo } from "../components";
+import customFetch from "../utils/customFetch.js";
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
@@ -17,7 +19,13 @@ export const action = async ({ request }) => {
     return null;
   }
 
-  //TODO : send data to backend
+  try {
+    await customFetch.post("/auth/login", data);
+    return redirect("/dashboard");
+  } catch (errors) {
+    errors.msg = "Invalid Credentials";
+    return errors;
+  }
 };
 
 const Login = () => {

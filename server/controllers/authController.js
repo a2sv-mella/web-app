@@ -66,9 +66,9 @@ const login = async (req, res) => {
 
     const userQuery = "SELECT * FROM users WHERE email = $1";
     const result = await db.query(userQuery, [email]);
+
     if (result.rows.length === 0) {
-      res.status(StatusCodes.NOT_FOUND).json({ msg: "User Doesn't Exists" });
-      return;
+      throw new UnauthenticatedError("Invalid Credentials");
     }
 
     const user = result.rows[0];
@@ -87,8 +87,7 @@ const login = async (req, res) => {
 
       res.status(StatusCodes.OK).json({ msg: "User logged in" });
     } else {
-      res.status(StatusCodes.NOT_FOUND).json({ msg: "Password Mismatch" });
-      return;
+      throw new UnauthenticatedError("Invalid Credentials");
     }
   } catch (error) {
     console.error(error.stack);
