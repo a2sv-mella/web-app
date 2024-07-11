@@ -12,4 +12,4 @@ const verifyJWT = (token) => {
   return decoded;
 };
 
-module.exports = {createJWT, verifyJWT }
+module.exports = { createJWT, verifyJWT };

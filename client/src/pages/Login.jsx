@@ -38,7 +38,7 @@ const Login = () => {
       <Form method="post" className="form">
         <Logo />
         {errors?.msg && <p style={{ color: "red" }}>{errors.msg}</p>}
-        <FormRow type="email" name="email" defaultValue="yourname@email.com" />
+        <FormRow type="email" name="email" defaultValue="dolphin@gmail.com" />
         <FormRow type="password" name="password" defaultValue="password" />
         <button type="submit" className="btn btn-block" disabled={isSubmitting}>
           {isSubmitting ? "Submitting . . ." : "Submit"}

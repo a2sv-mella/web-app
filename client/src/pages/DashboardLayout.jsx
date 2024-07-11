@@ -7,7 +7,18 @@ import customFetch from "../utils/customFetch";
 export const loader = async () => {
   try {
     // const { data } = await customFetch.get("/users/current-user");
-    data = 
+    const data = {
+      user: {
+        first_name: "Dolphin",
+        last_name: "Mulugeta",
+        email: "email@email.com",
+        role: "develope",
+      },
+    };
+    if (!data) {
+      return redirect("/");
+    }
+    console.log(data);
     return data;
   } catch (error) {
     return redirect("/");
@@ -25,11 +36,12 @@ const DashboardLayout = () => {
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
   };
+
   const logoutUser = async () => {
     navigate("/");
     await customFetch.get("/auth/logout");
+    // TODO: use toast instead of alert
     alert("User logged out");
-    // console.log("logout user.");
   };
 
   return (
