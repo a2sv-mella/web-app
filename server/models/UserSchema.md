@@ -7,7 +7,6 @@ CREATE TABLE users (
     email VARCHAR(255) UNIQUE,
     password VARCHAR(255),
     role user_role DEFAULT 'user',
-    profile_picture VARCHAR(255),
     phone_number VARCHAR(20),
     semuni INT DEFAULT 0,
     is_verified BOOLEAN DEFAULT FALSE,
