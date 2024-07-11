@@ -29,6 +29,11 @@ const router = createBrowserRouter([
         path: "about",
         element: <About />,
       },
+      // {
+      //   path: "dashboard",
+      //   element: <DashboardLayout />,
+      //   loader: dashboardLoader,
+      // },
       {
         path: "contact",
         element: <Contact />,
