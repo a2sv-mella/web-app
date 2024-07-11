@@ -59,7 +59,6 @@ const Wrapper = styled.section`
   }
   .top-btn {
     padding: 0.7rem 0.9rem;
-    background-color: var(--primary-300);
   }
   .top-btn-inactive {
     padding: 0.7rem 0.9rem;

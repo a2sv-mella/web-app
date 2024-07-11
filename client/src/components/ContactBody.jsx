@@ -7,7 +7,7 @@ const ContactBody = () => {
     <div className="container mx-auto px-4 py-16">
       <h2 className="text-2xl font-bold mb-4 text-center">Contact Us</h2>
       <div className="w-full max-w-md mx-auto">
-        <form className="bg-blue-100 shadow-md rounded-lg p-6 space-y-4">
+        <form className="bg-blue-100 shadow-md rounded-lg p-6 space-y-2">
           <div>
             <label
               htmlFor="name"
@@ -58,7 +58,7 @@ const ContactBody = () => {
           </button>
         </form>
       </div>
-      <footer className="flex justify-center items-center mt-8 bg-blue-100 shadow-md rounded-lg p-6">
+      <footer className="flex justify-center items-center mt-8 bg-blue-300 shadow-md rounded-lg p-2">
         <div className="flex space-x-4">
         <p>Phone: +123456789</p>
           <a href="#">
