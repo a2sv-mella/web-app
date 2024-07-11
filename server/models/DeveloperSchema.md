@@ -2,6 +2,9 @@
 CREATE TABLE developers (
     developer_id SERIAL PRIMARY KEY,
     user_id INT,
+    private_key VARCHAR(255),
+    public_key VARCHAR(255),
+    encryption_key VARCHAR(255),
     company_name VARCHAR(255),
     website VARCHAR(255),
     description TEXT,
