@@ -34,6 +34,12 @@ const Wrapper = styled.section`
     }
     margin-bottom: 1.5rem;
   }
+  
+  d {
+    line-height: 2;
+    color: var(--text-secondary-color);
+    margin-bottom: 1.5rem;
+  }
   p {
     line-height: 2;
     color: var(--text-secondary-color);
@@ -53,7 +59,6 @@ const Wrapper = styled.section`
   }
   .top-btn {
     padding: 0.7rem 0.9rem;
-    background-color: var(--primary-300);
   }
   .top-btn-inactive {
     padding: 0.7rem 0.9rem;

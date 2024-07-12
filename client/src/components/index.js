@@ -6,5 +6,5 @@ export {default as PricingBody} from "./PricingBody";
 export {default as BigSidebar} from "./BigSidebar";
 export {default as SmallSidebar} from "./SmallSidebar";
 export {default as Navbar} from "./Navbar";
-// export {default as}
+export {default as AboutBody} from "./Aboutbody";
 
