@@ -5,6 +5,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const { body, validationResult } = require("express-validator");
 
 const authRouter = require("./routes/authRouter");
 const campaignRouter = require("./routes/campaignRouter");
@@ -19,20 +20,12 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({ credentials: true }));
 app.use(cookieParser());
-
-app.get("/", (req, res) => {
-  res.send("hello world");
-});
-
-app.post("/", (req, res) => {
-  res.send("hello world");
-});
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/payments", paymentRouter);
-app.use("/api/v1/campaigns", campaignRouter);
+app.use("/api/v1/campaigns",authenticateUser, campaignRouter);
 app.use("/api/v1/users", authenticateUser, userRouter);
 
 app.use("*", (req, res) => {

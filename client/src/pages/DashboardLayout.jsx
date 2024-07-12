@@ -6,15 +6,15 @@ import customFetch from "../utils/customFetch";
 
 export const loader = async () => {
   try {
-    // const { data } = await customFetch.get("/users/current-user");
-    const data = {
-      user: {
-        first_name: "Dolphin",
-        last_name: "Mulugeta",
-        email: "email@email.com",
-        role: "develope",
-      },
-    };
+    const { data } = await customFetch.get("/users/current-user");
+    // const data = {
+    //   user: {
+    //     first_name: "Dolphin",
+    //     last_name: "Mulugeta",
+    //     email: "email@email.com",
+    //     role: "develope",
+    //   },
+    // };
     if (!data) {
       return redirect("/");
     }

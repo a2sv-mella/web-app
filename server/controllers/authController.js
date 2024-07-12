@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const db = require("../models/db");
 const { UnauthenticatedError } = require("../errors/customErrors");
 const { createJWT } = require("../utils/tokenUtils");
+
 function generateRandomCharacters(length) {
   const characters =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*(){}|:";0123456789';
@@ -21,6 +22,7 @@ const register = async (req, res) => {
 
     const findUserQuery = "SELECT email FROM users WHERE email = $1";
     const result = await db.query(findUserQuery, [email]);
+
     if (result.rows.length !== 0) {
       res.status(StatusCodes.CONFLICT).json({ msg: "User Already Exists" });
       return;
@@ -34,6 +36,7 @@ const register = async (req, res) => {
       hashedPassword,
       role,
     ]);
+    
     if (role === "developer") {
       const getLastElementQuery = `SELECT * FROM users ORDER BY user_id DESC LIMIT 1`;
       const lastElement = await db.query(getLastElementQuery);
@@ -79,7 +82,7 @@ const login = async (req, res) => {
       const oneDay = 1000 * 60 * 60 * 24;
       const future = new Date(Date.now() + oneDay);
 
-      res.cookie("token", token, {
+      res.cookie("mella_token", token, {
         httpOnly: true,
         expires: future,
         secure: process.env.NODE_ENV === "production",
