@@ -20,12 +20,21 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.use(express.json());
-app.use(cors({ credentials: true }));
+
+const corsOptions = {
+  // origin: "http://localhost:5173",
+  origin: true,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept",
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(cookieParser());
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/payments", paymentRouter);
-app.use("/api/v1/campaigns",authenticateUser, campaignRouter);
+app.use("/api/v1/campaigns", authenticateUser, campaignRouter);
 app.use("/api/v1/users", authenticateUser, userRouter);
 
 app.use("*", (req, res) => {

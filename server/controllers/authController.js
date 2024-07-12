@@ -82,7 +82,7 @@ const login = async (req, res) => {
       const oneDay = 1000 * 60 * 60 * 24;
       const future = new Date(Date.now() + oneDay);
 
-      res.cookie("mella_token", token, {
+      res.cookie("token", token, {
         httpOnly: true,
         expires: future,
         secure: process.env.NODE_ENV === "production",
