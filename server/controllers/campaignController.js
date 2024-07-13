@@ -3,6 +3,9 @@ const available = async (req, res) => {
   try {
     // TODO: Implement available campaigns
     // Retrieves the available campaigns from database.
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ error: "Internal Server Error" });
   } catch (error) {
     console.error(error.stack);
     res

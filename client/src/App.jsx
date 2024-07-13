@@ -11,9 +11,19 @@ import {
   Pricing,
   Register,
   Services,
+  DashboardLayout,
+  Account,
+  Balance,
+  Crowdfunding,
+  Donations,
+  Summary,
+  Smuni,
+  Transactions,
 } from "./pages";
 import { action as loginAction } from "./pages/Login";
 import { action as registerAction } from "./pages/Register";
+
+import { loader as dashboardLoader } from "./pages/DashboardLayout";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +38,38 @@ const router = createBrowserRouter([
       {
         path: "about",
         element: <About />,
+      },
+      {
+        path: "dashboard",
+        element: <DashboardLayout />,
+        loader: dashboardLoader,
+        children: [
+          { index: true, element: <Summary /> },
+          {
+            path: "transactions",
+            element: <Transactions />,
+          },
+          {
+            path: "crowd",
+            element: <Crowdfunding />,
+          },
+          {
+            path: "donations",
+            element: <Donations />,
+          },
+          {
+            path: "balance",
+            element: <Balance />,
+          },
+          {
+            path: "account",
+            element: <Account />,
+          },
+          {
+            path: "smuni",
+            element: <Smuni />,
+          },
+        ],
       },
       {
         path: "contact",
