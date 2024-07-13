@@ -18,3 +18,4 @@ export { default as Donations } from "./Donations";
 export { default as Summary } from "./Summary";
 export { default as Transactions } from "./Transactions";
 export { default as Smuni } from "./Smuni";
+export { default as ApplyCrowdFund } from "./ApplyCrowdFund";
