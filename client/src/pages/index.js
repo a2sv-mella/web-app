@@ -12,10 +12,11 @@ export { default as Services } from "./Services";
 export { default as DashboardLayout } from "./DashboardLayout";
 
 export { default as Account } from "./Account";
+export { default as ApplyCrowdFund } from "./ApplyCrowdFund";
 export { default as Balance } from "./Balance";
 export { default as Crowdfunding } from "./Crowdfunding";
 export { default as Donations } from "./Donations";
+export { default as Product } from "./Product";
 export { default as Summary } from "./Summary";
 export { default as Transactions } from "./Transactions";
 export { default as Smuni } from "./Smuni";
-export { default as ApplyCrowdFund } from "./ApplyCrowdFund";

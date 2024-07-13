@@ -45,13 +45,12 @@ const register = async (req, res) => {
       const PRIVATE_KEY = `MELPRVK_${generateRandomCharacters(10)}`;
       const PUBLIC_KEY = `MELPUBK_${generateRandomCharacters(10)}`;
       const ENCRYPTION_KEY = generateRandomCharacters(16);
-      const insertDeveloperQuery = `INSERT INTO developers(user_id,private_key,public_key,encryption_key,company_name) VALUES ($1, $2, $3, $4, $5)`;
+      const insertDeveloperQuery = `INSERT INTO developers(user_id,private_key,public_key,encryption_key) VALUES ($1, $2, $3, $4)`;
       await db.query(insertDeveloperQuery, [
         user_id,
         PRIVATE_KEY,
         PUBLIC_KEY,
-        ENCRYPTION_KEY,
-        company_name,
+        ENCRYPTION_KEY
       ]);
     }
     res.status(StatusCodes.CREATED).json({ msg: "User created" });

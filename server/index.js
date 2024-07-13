@@ -11,8 +11,13 @@ const authRouter = require("./routes/authRouter");
 const campaignRouter = require("./routes/campaignRouter");
 const paymentRouter = require("./routes/paymentRouter");
 const userRouter = require("./routes/userRouter");
+const productRouter = require("./routes/productRouter");
 
-const { authenticateUser, errorHandlerMiddleware } = require("./middleware");
+const {
+  authenticateUser,
+  errorHandlerMiddleware,
+  authenticateDeveloper,
+} = require("./middleware");
 
 const app = express();
 if (process.env.NODE_ENV === "development") {
@@ -36,6 +41,12 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/payments", paymentRouter);
 app.use("/api/v1/campaigns", authenticateUser, campaignRouter);
 app.use("/api/v1/users", authenticateUser, userRouter);
+app.use(
+  "/api/v1/product",
+  authenticateUser,
+  authenticateDeveloper,
+  productRouter
+);
 
 app.use("*", (req, res) => {
   res.status(404).json({ msg: "not found" });
