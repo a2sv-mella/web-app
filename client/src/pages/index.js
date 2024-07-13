@@ -1,0 +1,21 @@
+export { default as About } from "./About";
+export { default as Contact } from "./Contact";
+export { default as Demos } from "./Demos";
+export { default as Docs } from "./Docs";
+export { default as Error } from "./Error";
+export { default as HomeLayout } from "./HomeLayout";
+export { default as Landing } from "./Landing";
+export { default as Login } from "./Login";
+export { default as Pricing } from "./Pricing";
+export { default as Register } from "./Register";
+export { default as Services } from "./Services";
+export { default as DashboardLayout } from "./DashboardLayout";
+
+export { default as Account } from "./Account";
+export { default as Balance } from "./Balance";
+export { default as Crowdfunding } from "./Crowdfunding";
+export { default as Donations } from "./Donations";
+export { default as Summary } from "./Summary";
+export { default as Transactions } from "./Transactions";
+export { default as Smuni } from "./Smuni";
+export { default as ApplyCrowdFund } from "./ApplyCrowdFund";
