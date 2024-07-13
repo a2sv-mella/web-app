@@ -19,11 +19,13 @@ import {
   Summary,
   Smuni,
   Transactions,
+  ApplyCrowdFund,
 } from "./pages";
 import { action as loginAction } from "./pages/Login";
 import { action as registerAction } from "./pages/Register";
 
 import { loader as dashboardLoader } from "./pages/DashboardLayout";
+import { loader as crowdFundingLoader } from "./pages/Crowdfunding";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +54,7 @@ const router = createBrowserRouter([
           {
             path: "crowd",
             element: <Crowdfunding />,
+            loader: crowdFundingLoader,
           },
           {
             path: "donations",
@@ -68,6 +71,10 @@ const router = createBrowserRouter([
           {
             path: "smuni",
             element: <Smuni />,
+          },
+          {
+            path: "apply-crowdfund/:id",
+            element: <ApplyCrowdFund />,
           },
         ],
       },
