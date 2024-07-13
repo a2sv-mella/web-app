@@ -1,6 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import {
   About,
+  Balance,
   Contact,
   Demos,
   Docs,
@@ -13,16 +14,16 @@ import {
   Services,
   DashboardLayout,
   Account,
-  Balance,
+  Product,
   Crowdfunding,
   Donations,
-  Summary,
   Smuni,
   Transactions,
   ApplyCrowdFund,
 } from "./pages";
 import { action as loginAction } from "./pages/Login";
 import { action as registerAction } from "./pages/Register";
+import { action as productAction } from "./pages/Product";
 
 import { loader as dashboardLoader } from "./pages/DashboardLayout";
 import { loader as crowdFundingLoader } from "./pages/Crowdfunding";
@@ -46,9 +47,8 @@ const router = createBrowserRouter([
         element: <DashboardLayout />,
         loader: dashboardLoader,
         children: [
-          { index: true, element: <Summary /> },
           {
-            path: "transactions",
+            index: true,
             element: <Transactions />,
           },
           {
@@ -61,12 +61,17 @@ const router = createBrowserRouter([
             element: <Donations />,
           },
           {
-            path: "balance",
-            element: <Balance />,
+            path: "product",
+            element: <Product />,
+            action: productAction,
           },
           {
             path: "account",
             element: <Account />,
+          },
+          {
+            path: "balance",
+            element: <Balance />,
           },
           {
             path: "smuni",

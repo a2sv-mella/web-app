@@ -1,19 +1,12 @@
 // import React from "react";
-import { FaWpforms, FaRegChartBar } from "react-icons/fa";
+import {FaMedapps, FaRegChartBar } from "react-icons/fa";
 import { ImProfile } from "react-icons/im";
-import { SiCrowdsource } from "react-icons/si";
-import { BiDonateHeart } from "react-icons/bi";
-import { LuWallet } from "react-icons/lu";
+import { SiCrowdsource } from "react-icons/si";import { LuWallet } from "react-icons/lu";
 import { PiCoinsFill } from "react-icons/pi";
 const links = [
   {
-    text: "Summary",
-    path: ".",
-    icon: <FaWpforms />,
-  },
-  {
     text: "Transactions",
-    path: "transactions",
+    path: ".",
     icon: <FaRegChartBar />,
   },
   {
@@ -22,9 +15,9 @@ const links = [
     icon: <SiCrowdsource />,
   },
   {
-    text: "Donations",
-    path: "donations",
-    icon: <BiDonateHeart />,
+    text: "Product",
+    path: "product",
+    icon: <FaMedapps />,
   },
   {
     text: "Balance",

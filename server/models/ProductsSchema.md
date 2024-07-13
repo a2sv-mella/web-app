@@ -5,7 +5,8 @@ CREATE TABLE products (
     name VARCHAR(255),
     description TEXT,
     category VARCHAR(255),
-    price DECIMAL(10, 2) DEFAULT 0,
+    link VARCHAR(255),
+    location VARCHAR(255),
     is_free BOOLEAN DEFAULT FALSE,
     is_crowdfunded BOOLEAN DEFAULT FALSE,
     is_featured BOOLEAN DEFAULT FALSE,
@@ -26,5 +27,4 @@ CREATE TRIGGER update_product_timestamp
 BEFORE UPDATE ON products
 FOR EACH ROW
 EXECUTE PROCEDURE update_product_timestamp();
-
 ```
