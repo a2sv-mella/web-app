@@ -17,43 +17,35 @@ const initialize = async (req, res) => {
     },
     body: JSON.stringify(req.body)
   };
-
-  console.log(options);
   try {
-    const response = await requestPromise(options);
-    const jsonResponse = JSON.parse(response.body);
-
-    res.send(jsonResponse.data.checkout_url);
-    console.log(jsonResponse);
-
 
     let tobeInserted = JSON.parse(options.body)
     const query = `
       INSERT INTO payments (tx_ref, currency, product_id,amount, email,
-      first_name, last_name, phone_number, callback_url, return_url, description, created_at)
+      first_name, last_name, phone_number, callback_url, return_url, description, payment_type)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11,$12)
       RETURNING *`;
-    const date = new Date();
 
-    const timestampWithOptions = date.toLocaleString('en-US', { timeZone: 'Africa/Nairobi' });
     const values = [tobeInserted.tx_ref,tobeInserted.currency,tobeInserted.product_id,tobeInserted.amount,tobeInserted.email,
       tobeInserted.first_name,tobeInserted.last_name,tobeInserted.phone_number,tobeInserted.sender_callback,tobeInserted.return_url,
-      tobeInserted.customization["description"],timestampWithOptions]
+      tobeInserted.customization["description"], tobeInserted.payment_type]
 
     const result = await db.query(query, values);
     const paymentInfo = result.rows[0]
-    console.log(paymentInfo)
     if (tobeInserted.payment_type === "donation") {
 
       const donationQuery = `
-        INSERT INTO donations (payment_id,product_id,amount,message,created_at)
-        VALUES ($1, $2, $3, $4, $5)
+        INSERT INTO donations (payment_id,product_id,amount,message)
+        VALUES ($1, $2, $3, $4)
         RETURNING *`;
 
-      const timestampWithOptions = date.toLocaleString('en-US', { timeZone: 'Africa/Nairobi' });
       const values = [paymentInfo.payment_id,tobeInserted.product_id,tobeInserted.amount,
-        tobeInserted.customization["description"],timestampWithOptions]
+        tobeInserted.customization["description"]]
       await db.query(donationQuery, values);
+      const response = await requestPromise(options);
+      const jsonResponse = JSON.parse(response.body);
+
+      res.send(jsonResponse.data.checkout_url);
     }
   } catch (error) {
     console.error(error.stack);
@@ -66,8 +58,11 @@ const initialize = async (req, res) => {
 const verify = async (req, res) => {
   try {
 
-    console.log(req.query)
     const transaction = req.query
+
+    delete transaction.callback
+    delete transaction._
+
     const tx_ref = transaction.trx_ref
     const selectQuery = 'SELECT * FROM payments WHERE tx_ref = $1';
     const selectResult = await db.query(selectQuery, [tx_ref]);
@@ -89,7 +84,6 @@ const verify = async (req, res) => {
     transaction.payment_made = timestampWithOptions
     transaction.payment_id = payment_id
 
-    console.log(selectResult.rows[0])
 
     const options = {
       method: "GET",
@@ -102,7 +96,6 @@ const verify = async (req, res) => {
 
     const response = await requestPromise(options);
 
-    console.log(response.body)
     res.status(StatusCodes.OK).json(result.rows[0]);
   } catch (error) {
     console.error(error.stack);
