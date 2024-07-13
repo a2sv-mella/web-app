@@ -5,7 +5,7 @@ CREATE TABLE donations (
     product_id INT REFERENCES products(product_id),
     amount DECIMAL(10, 2) NOT NULL,
     message TEXT,
-    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE OR REPLACE FUNCTION update_timestamp()
