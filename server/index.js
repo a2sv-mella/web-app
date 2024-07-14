@@ -2,6 +2,7 @@ require("express-async-errors");
 const dotenv = require("dotenv");
 dotenv.config();
 const express = require("express");
+const path = require("path");
 const morgan = require("morgan");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
@@ -11,7 +12,7 @@ const authRouter = require("./routes/authRouter");
 const campaignRouter = require("./routes/campaignRouter");
 const paymentRouter = require("./routes/paymentRouter");
 const userRouter = require("./routes/userRouter");
-const transRouter = require("./routes/transactionRouter")
+const transRouter = require("./routes/transactionRouter");
 const productRouter = require("./routes/productRouter");
 
 const {
@@ -38,8 +39,15 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(cookieParser());
 
+app.use(express.static(path.join(__dirname, "build")));
+
 app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/transactions", authenticateUser,authenticateDeveloper,transRouter)
+app.use(
+  "/api/v1/transactions",
+  authenticateUser,
+  authenticateDeveloper,
+  transRouter
+);
 app.use("/api/v1/payments", paymentRouter);
 app.use("/api/v1/campaigns", authenticateUser, campaignRouter);
 app.use("/api/v1/users", authenticateUser, userRouter);
@@ -50,8 +58,8 @@ app.use(
   productRouter
 );
 
-app.use("*", (req, res) => {
-  res.status(404).json({ msg: "not found" });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build/index.html"));
 });
 
 app.use(errorHandlerMiddleware);
