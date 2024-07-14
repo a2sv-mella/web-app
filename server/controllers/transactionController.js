@@ -5,6 +5,12 @@ const getTransactions = async (req, res) => {
   try {
     
     const user_id = req.user.user_id;
+    if (!req.user.role === "developer") {
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ error: "NO products found" });
+
+    }
     const developerQuery = "SELECT developer_id FROM developers WHERE user_id = $1";
     const developerResult = await db.query(developerQuery, [user_id]);
     const developer_id = developerResult.rows[0].developer_id
@@ -25,10 +31,8 @@ const getTransactions = async (req, res) => {
     const paymentss = paymentResult.rows
 
 
-    console.log(paymentss)
     res.status(StatusCodes.OK).json(paymentss);
   } catch (error) {
-    console.error(error.stack);
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .json({ error: "Internal Server Error" });
