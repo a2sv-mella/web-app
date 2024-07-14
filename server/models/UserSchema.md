@@ -4,6 +4,7 @@ CREATE TYPE user_role AS ENUM ('developer', 'user');
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     first_name VARCHAR(255),
+    middle_name VARCHAR(255),
     last_name VARCHAR(255),
     email VARCHAR(255) UNIQUE,
     password VARCHAR(255),

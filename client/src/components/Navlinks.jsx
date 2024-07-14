@@ -8,11 +8,6 @@ const Navlinks = ({ isBigSidebar }) => {
   return (
     <div className="nav-links">
       {links.map((each_link) => {
-        console.log(
-          each_link.path,
-          USER_PAGES.includes(each_link.path),
-          user.role !== "user"
-        );
         if (
           DEVELOPER_PAGES.includes(each_link.path) &&
           user.role === "user"
