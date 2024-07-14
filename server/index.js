@@ -11,11 +11,8 @@ const authRouter = require("./routes/authRouter");
 const campaignRouter = require("./routes/campaignRouter");
 const paymentRouter = require("./routes/paymentRouter");
 const userRouter = require("./routes/userRouter");
-<<<<<<< HEAD
 const transRouter = require("./routes/transactionRouter")
-=======
 const productRouter = require("./routes/productRouter");
->>>>>>> d443816949f88c2c90f3bac77528c61efda801d5
 
 const {
   authenticateUser,

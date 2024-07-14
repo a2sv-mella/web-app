@@ -27,12 +27,8 @@ import { action as registerAction } from "./pages/Register";
 import { action as productAction } from "./pages/Product";
 
 import { loader as dashboardLoader } from "./pages/DashboardLayout";
-<<<<<<< HEAD
-import { loader as crowdFundingLoader } from "./pages/Crowdfunding";
 import { loader as transactionLoader } from "./pages/Transactions"
-=======
 import { loader as crowdFundingLoader } from "./pages/UserCrowdfunding";
->>>>>>> d443816949f88c2c90f3bac77528c61efda801d5
 
 const router = createBrowserRouter([
   {
