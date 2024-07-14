@@ -1,22 +1,25 @@
 import { useDashboardContext } from "../pages/DashboardLayout";
 import links from "../utils/links";
 import { NavLink } from "react-router-dom";
+import { DEVELOPER_PAGES, USER_PAGES } from "../utils/constants";
 
 const Navlinks = ({ isBigSidebar }) => {
   const { toggleSidebar, user } = useDashboardContext(); //import user
   return (
     <div className="nav-links">
       {links.map((each_link) => {
-        if (each_link.path === "transactions" && user.role !== "developer") {
+        console.log(
+          each_link.path,
+          USER_PAGES.includes(each_link.path),
+          user.role !== "user"
+        );
+        if (
+          DEVELOPER_PAGES.includes(each_link.path) &&
+          user.role === "user"
+        ) {
           return;
         }
-        if (each_link.path === "crowd" && user.role !== "developer") {
-          return;
-        }
-        if (each_link.path === "donations" && user.role !== "developer") {
-          return;
-        }
-        if (each_link.path === "smuni" && user.role === "developer") {
+        if (USER_PAGES.includes(each_link.path) && user.role === "developer") {
           return;
         }
 

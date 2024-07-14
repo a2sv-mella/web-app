@@ -1,15 +1,14 @@
 // import React from "react";
-import { FaWpforms, FaRegChartBar } from "react-icons/fa";
+import { FaMedapps, FaRegChartBar } from "react-icons/fa";
 import { ImProfile } from "react-icons/im";
 import { SiCrowdsource } from "react-icons/si";
-import { BiDonateHeart } from "react-icons/bi";
 import { LuWallet } from "react-icons/lu";
 import { PiCoinsFill } from "react-icons/pi";
 const links = [
   {
-    text: "Summary",
+    text: "Account",
     path: ".",
-    icon: <FaWpforms />,
+    icon: <ImProfile />,
   },
   {
     text: "Transactions",
@@ -18,13 +17,18 @@ const links = [
   },
   {
     text: "Crowdfunding",
-    path: "crowd",
+    path: "developer-crowd",
     icon: <SiCrowdsource />,
   },
   {
-    text: "Donations",
-    path: "donations",
-    icon: <BiDonateHeart />,
+    text: "Campaigns",
+    path: "user-crowd",
+    icon: <SiCrowdsource />,
+  },
+  {
+    text: "Product",
+    path: "product",
+    icon: <FaMedapps />,
   },
   {
     text: "Balance",
@@ -35,11 +39,6 @@ const links = [
     text: "Smuni",
     path: "smuni",
     icon: <PiCoinsFill />,
-  },
-  {
-    text: "Account",
-    path: "account",
-    icon: <ImProfile />,
   },
 ];
 export default links;

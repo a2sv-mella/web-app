@@ -1,6 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import {
   About,
+  Balance,
   Contact,
   Demos,
   Docs,
@@ -13,20 +14,25 @@ import {
   Services,
   DashboardLayout,
   Account,
-  Balance,
-  Crowdfunding,
+  Product,
+  UserCrowdfunding,
+  DeveloperCrowdfunding,
   Donations,
-  Summary,
   Smuni,
   Transactions,
   ApplyCrowdFund,
 } from "./pages";
 import { action as loginAction } from "./pages/Login";
 import { action as registerAction } from "./pages/Register";
+import { action as productAction } from "./pages/Product";
 
 import { loader as dashboardLoader } from "./pages/DashboardLayout";
+<<<<<<< HEAD
 import { loader as crowdFundingLoader } from "./pages/Crowdfunding";
 import { loader as transactionLoader } from "./pages/Transactions"
+=======
+import { loader as crowdFundingLoader } from "./pages/UserCrowdfunding";
+>>>>>>> d443816949f88c2c90f3bac77528c61efda801d5
 
 const router = createBrowserRouter([
   {
@@ -47,28 +53,36 @@ const router = createBrowserRouter([
         element: <DashboardLayout />,
         loader: dashboardLoader,
         children: [
-          { index: true, element: <Summary /> },
+          {
+            index: true,
+            element: <Account />,
+          },
           {
             path: "transactions",
             element: <Transactions />,
             loader: transactionLoader
           },
           {
-            path: "crowd",
-            element: <Crowdfunding />,
+            path: "user-crowd",
+            element: <UserCrowdfunding />,
             loader: crowdFundingLoader,
+          },
+          {
+            path: "developer-crowd",
+            element: <DeveloperCrowdfunding />,
           },
           {
             path: "donations",
             element: <Donations />,
           },
           {
-            path: "balance",
-            element: <Balance />,
+            path: "product",
+            element: <Product />,
+            action: productAction,
           },
           {
-            path: "account",
-            element: <Account />,
+            path: "balance",
+            element: <Balance />,
           },
           {
             path: "smuni",

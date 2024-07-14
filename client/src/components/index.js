@@ -10,3 +10,5 @@ export { default as AboutBody } from "./Aboutbody";
 
 export { default as SearchContainer } from "./SearchContainer";
 export { default as CrowdFundsContainer } from "./CrowdFundsContainer";
+
+export {default as FormRowSelect} from "./FormRowSelect";

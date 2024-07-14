@@ -35,7 +35,7 @@ export const loader = async () => {
   }
 };
 
-const Crowdfunding = () => {
+const UserCrowdfunding = () => {
   const { data } = useLoaderData();
   return (
     <>
@@ -47,5 +47,5 @@ const Crowdfunding = () => {
   );
 };
 
-export default Crowdfunding;
+export default UserCrowdfunding;
 export const useCrowdContext = () => useContext(CrowdFundingContext);
