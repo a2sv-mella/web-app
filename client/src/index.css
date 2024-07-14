@@ -3,6 +3,7 @@
 @tailwind utilities;
 /* ============= GLOBAL CSS =============== */
 
+
 *,
 ::after,
 ::before {
@@ -363,4 +364,19 @@ button:disabled {
 .delete-btn {
   background: #d66a6a;
   color: #000000;
+}
+.table-header {
+  @apply py-3 px-4 border-b border-gray-300 text-left text-lg font-medium text-white bg-header-bg;
+}
+
+.table-cell {
+  @apply py-3 px-4 border-b border-gray-300 text-lg text-gray-700;
+}
+
+.status-completed {
+  @apply text-status-completed;
+}
+
+.status-pending {
+  @apply text-status-pending;
 }

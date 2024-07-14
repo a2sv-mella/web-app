@@ -11,6 +11,7 @@ const authRouter = require("./routes/authRouter");
 const campaignRouter = require("./routes/campaignRouter");
 const paymentRouter = require("./routes/paymentRouter");
 const userRouter = require("./routes/userRouter");
+const transRouter = require("./routes/transactionRouter")
 
 const { authenticateUser, errorHandlerMiddleware } = require("./middleware");
 
@@ -33,6 +34,7 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/transactions", authenticateUser, transRouter)
 app.use("/api/v1/payments", paymentRouter);
 app.use("/api/v1/campaigns", authenticateUser, campaignRouter);
 app.use("/api/v1/users", authenticateUser, userRouter);

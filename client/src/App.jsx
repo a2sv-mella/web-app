@@ -26,6 +26,7 @@ import { action as registerAction } from "./pages/Register";
 
 import { loader as dashboardLoader } from "./pages/DashboardLayout";
 import { loader as crowdFundingLoader } from "./pages/Crowdfunding";
+import { loader as transactionLoader } from "./pages/Transactions"
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,7 @@ const router = createBrowserRouter([
           {
             path: "transactions",
             element: <Transactions />,
+            loader: transactionLoader
           },
           {
             path: "crowd",

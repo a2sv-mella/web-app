@@ -17,6 +17,13 @@ export const loader = async () => {
           location: "Addis Ababa",
           createdAt: "2024-06-20T11:17:15.550Z",
         },
+        {
+          id: 3,
+          developer: "Kidus Melaku",
+          company_name: "Fet Fet",
+          location: "Addis Ababa",
+          createdAt: "2024-07-18T11:17:15.550Z",
+        },
       ],
     };
     return {

@@ -13,6 +13,7 @@ export const loader = async () => {
         last_name: "Mulugeta",
         email: "email@email.com",
         role: "developer",
+        developer_id: 2,
       },
     };
     if (!data) {
