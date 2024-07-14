@@ -1,5 +1,5 @@
 import Wrapper from "../assets/wrappers/CrowdFundsContainer";
-import { useCrowdContext } from "../pages/Crowdfunding";
+import { useCrowdContext } from "../pages/UserCrowdfunding";
 import CrowdFund from "./CrowdFund";
 
 const CrowdFundsContainer = () => {

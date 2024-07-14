@@ -15,7 +15,8 @@ import {
   DashboardLayout,
   Account,
   Product,
-  Crowdfunding,
+  UserCrowdfunding,
+  DeveloperCrowdfunding,
   Donations,
   Smuni,
   Transactions,
@@ -26,7 +27,7 @@ import { action as registerAction } from "./pages/Register";
 import { action as productAction } from "./pages/Product";
 
 import { loader as dashboardLoader } from "./pages/DashboardLayout";
-import { loader as crowdFundingLoader } from "./pages/Crowdfunding";
+import { loader as crowdFundingLoader } from "./pages/UserCrowdfunding";
 
 const router = createBrowserRouter([
   {
@@ -49,12 +50,20 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
+            element: <Account />,
+          },
+          {
+            path: "transactions",
             element: <Transactions />,
           },
           {
-            path: "crowd",
-            element: <Crowdfunding />,
+            path: "user-crowd",
+            element: <UserCrowdfunding />,
             loader: crowdFundingLoader,
+          },
+          {
+            path: "developer-crowd",
+            element: <DeveloperCrowdfunding />,
           },
           {
             path: "donations",
@@ -64,10 +73,6 @@ const router = createBrowserRouter([
             path: "product",
             element: <Product />,
             action: productAction,
-          },
-          {
-            path: "account",
-            element: <Account />,
           },
           {
             path: "balance",
