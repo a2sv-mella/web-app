@@ -8,6 +8,7 @@ import {
 import Wrapper from "../assets/wrappers/RegisterAndLoginPage";
 import { FormRow, Logo } from "../components";
 import customFetch from "../utils/customFetch.js";
+import { toast } from "react-toastify";
 // import {toast} from "react-toastify";
 
 export const action = async ({ request }) => {
@@ -15,21 +16,18 @@ export const action = async ({ request }) => {
   const data = Object.fromEntries(formData);
 
   if (data.password.length < 8) {
-    // TODO : use toast instead of alert
-    alert("Password too Short");
+    toast.warn("Password too Short");
     return null;
   }
   if (data.password !== data["confirm password"]) {
-    // TODO : use toast instead of alert
-    alert("Passwords Don't Match");
+    toast.warn("Passwords Don't Match");
     return null;
   }
   const isDeveloperChecked =
     formData.has("is_developer") && data["is_developer"] === "on";
 
   if (isDeveloperChecked && data["business name"] === "") {
-    // TODO : use toast instead of alert
-    alert("Business Name required for Developers");
+    toast.warn("Business Name Required for Developers");
     return null;
   }
   // TODO : add more data validation
@@ -47,9 +45,10 @@ export const action = async ({ request }) => {
   //TODO : send data to backend
   try {
     await customFetch.post("/auth/register", user_data);
+    toast.success("Registered Successfully")
     return redirect("/login");
   } catch (error) {
-    // TODO : use toast instead of alert
+    toast.warn("Email Already Used")
     return error;
   }
 };

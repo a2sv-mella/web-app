@@ -4,7 +4,7 @@ const HomePageNavbar = ({ location }) => {
   return (
       <nav>
         {/* <img src={logo} alt="Mella Logo" className="logo" /> */}
-        <h2>Mella</h2>
+        <Link to = "/"><h2>Mella</h2></Link>
         <div className="nav-links">
           {navbarLinks.map((link, index) => (
             <Link
