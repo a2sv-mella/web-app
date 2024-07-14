@@ -25,6 +25,7 @@ import {
 import { action as loginAction } from "./pages/Login";
 import { action as registerAction } from "./pages/Register";
 import { action as productAction } from "./pages/Product";
+import { action as accountAction } from "./pages/Account";
 
 import { loader as dashboardLoader } from "./pages/DashboardLayout";
 import { loader as crowdFundingLoader } from "./pages/UserCrowdfunding";
@@ -51,6 +52,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <Account />,
+            action: accountAction,
           },
           {
             path: "transactions",
