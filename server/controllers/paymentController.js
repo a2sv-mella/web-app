@@ -104,17 +104,18 @@ const verify = async (req, res) => {
     transaction.payment_made = timestampWithOptions;
     transaction.payment_id = payment_id;
 
-    const options = {
-      method: "GET",
-      url: callback_url,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(transaction),
-    };
-
-    const response = await requestPromise(options);
-
+    if (callback_url) {
+      const options = {
+        method: "GET",
+        url: callback_url,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(transaction),
+      };
+      const response = await requestPromise(options);
+    }
+    
     res.status(StatusCodes.OK).json(result.rows[0]);
   } catch (error) {
     console.error(error.stack);

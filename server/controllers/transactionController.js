@@ -5,23 +5,19 @@ const getTransactions = async (req, res) => {
   try {
     
     const user_id = req.user.user_id;
-    if (!req.user.role === "developer") {
-      return res
-        .status(StatusCodes.NOT_FOUND)
-        .json({ error: "NO products found" });
-
-    }
+    
     const developerQuery = "SELECT developer_id FROM developers WHERE user_id = $1";
     const developerResult = await db.query(developerQuery, [user_id]);
     const developer_id = developerResult.rows[0].developer_id
-
+    console.log(developer_id)
     const query = "SELECT product_id FROM products WHERE developer_id = $1";
     const result = await db.query(query, [developer_id]);
 
+    console.log(result.rows)
     if (result.rows.length === 0) {
       return res
-        .status(StatusCodes.NOT_FOUND)
-        .json({ error: "Payment not found" });
+        .status(StatusCodes.OK)
+        .json([]);
     }
 
     let transactions = result.rows[0];
@@ -29,6 +25,7 @@ const getTransactions = async (req, res) => {
     const productQuery = "SELECT * FROM payments WHERE product_id = $1 AND status = true"
     const paymentResult = await db.query(productQuery, [product_id])
     const paymentss = paymentResult.rows
+    
 
 
     res.status(StatusCodes.OK).json(paymentss);

@@ -18,7 +18,7 @@ const Transactions = () => {
   const data = useLoaderData();
 
   if (!data || data.length === 0) {
-    return <p className="text-center text-gray-600 text-lg">No transactions found.</p>;
+    return <h1 className="text-center text-gray-600 text-5xl">No transactions found.</h1>;
   }
 
   return (
