@@ -11,8 +11,9 @@ const authRouter = require("./routes/authRouter");
 const campaignRouter = require("./routes/campaignRouter");
 const paymentRouter = require("./routes/paymentRouter");
 const userRouter = require("./routes/userRouter");
-const transRouter = require("./routes/transactionRouter")
+const transRouter = require("./routes/transactionRouter");
 const productRouter = require("./routes/productRouter");
+const smuniRouter = require("./routes/smuniRouter");
 
 const {
   authenticateUser,
@@ -39,8 +40,17 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 
 app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/transactions", authenticateUser,authenticateDeveloper,transRouter)
-app.use("/api/v1/payments", paymentRouter);
+
+// If a user is a developer doesn't it mean he is a user ?
+// maybe we can you authenticateDeveloper only.
+app.use(
+  "/api/v1/transactions",
+  authenticateUser,
+  authenticateDeveloper,
+  transRouter
+);
+app.use("/api/v1/payments",paymentRouter);
+app.use("/api/v1/smuni", smuniRouter);
 app.use("/api/v1/campaigns", authenticateUser, campaignRouter);
 app.use("/api/v1/users", authenticateUser, userRouter);
 app.use(

@@ -40,7 +40,6 @@ const initialize = async (req, res) => {
       paymentDetails.customization["description"],
       paymentDetails.payment_type,
     ];
-
     const result = await db.query(query, values);
     const paymentInfo = result.rows[0];
 
@@ -58,11 +57,26 @@ const initialize = async (req, res) => {
       ];
       await db.query(donationQuery, values);
     }
-    // TODO : Use axios to handle request
+
+    if (paymentDetails.payment_type === "smuni") {
+      const user_id = req.user["user_id"];
+      const smuniQuery = `
+      INSERT INTO smuni (payment_id, user_id, amount)
+VALUES ($1, $2, $3) RETURNING *;`;
+
+      const values = [
+        paymentInfo.payment_id,
+        user_id,
+        paymentDetails.amount*4,
+      ];
+      await db.query(smuniQuery, values);
+    }
+    // TODO : Use axios to handle request 
     const response = await requestPromise(options);
 
     // TODO : Validate jsonReponse before sending.
     const jsonResponse = JSON.parse(response.body);
+
     res.send(jsonResponse);
   } catch (error) {
     console.error(error.stack);
@@ -115,7 +129,7 @@ const verify = async (req, res) => {
       };
       const response = await requestPromise(options);
     }
-    
+
     res.status(StatusCodes.OK).json(result.rows[0]);
   } catch (error) {
     console.error(error.stack);
