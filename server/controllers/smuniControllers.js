@@ -4,7 +4,6 @@ const db = require("../models/db");
 require("dotenv").config();
 const request = require("request");
 const { promisify } = require("util");
-const db = require("../models/db.js");
 
 const requestPromise = promisify(request);
 const buySmuni = async (req, res) => {
@@ -73,16 +72,16 @@ const payWithSmuni = async (req, res) => {
     // TODO: Implement pay with smuni
     const body = req.body;
     
-    const { semuni_payment_id, product_id, user_id, amount } = body;
+    const { smuni_payment_id, product_id, user_id, amount } = body;
 
-    const smuniUpdateQuery = `UPDATE smuni_payments SET status = $1 ,user_id = $2 WHERE semuni_payment_id = $3 RETURNING *`;
+    const smuniUpdateQuery = `UPDATE smuni_payments SET status = $1 ,user_id = $2 WHERE smuni_payment_id = $3 RETURNING *`;
     const queryResult = await db.query(smuniUpdateQuery, [
       true,
       user_id,
-      semuni_payment_id,
+      smuni_payment_id,
     ]);
 
-    const userUpdateQuery = `UPDATE users SET  semuni = semuni - $1  WHERE user_id = $2`;
+    const userUpdateQuery = `UPDATE users SET  smuni = smuni - $1  WHERE user_id = $2`;
     const userQueryResult = await db.query(userUpdateQuery, [amount, user_id]);
     res.status(StatusCodes.OK).json({ msg: "Payment Successfull" });
   } catch (error) {
@@ -167,7 +166,7 @@ const getSmuniPaymentData = async (req, res) => {
   const { name } = productData;
 
   const data = {
-    semuni_payment_id: smuni_payment_id,
+    smuni_payment_id: smuni_payment_id,
     product_id: product_id,
     product_name: name,
     amount: amount,

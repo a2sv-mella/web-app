@@ -37,11 +37,11 @@ const SmuniPayment = () => {
   const { data } = useLoaderData();
   const { user } = useOutletContext();
   const navigation = useNavigation();
-  const { semuni_payment_id, product_id, product_name, amount, description } =
+  const { smuni_payment_id, product_id, product_name, amount, description } =
     data;
-  const { semuni, user_id } = user;
+  const { smuni, user_id } = user;
   const isSubmitting = navigation.state === "submitting";
-  if (semuni < amount) {
+  if (smuni < amount) {
     return <NotEnoughSmuni />;
   } else {
     return (
@@ -61,8 +61,8 @@ const SmuniPayment = () => {
         </div>
         <input
           type="hidden"
-          name="semuni_payment_id"
-          value={semuni_payment_id}
+          name="smuni_payment_id"
+          value={smuni_payment_id}
         />
         <input type="hidden" name="product_id" value={product_id} />
         <input type="hidden" name="user_id" value={user_id} />
