@@ -10,8 +10,9 @@ const initialize = async (req, res) => {
 
   try {
     // TODO : Validation on the req.body
-    const key = req.headers.authorization
-    const product_id = req.body.product_id
+    const key = req.headers.authorization;
+    const product_id = req.body.product_id;
+
 
 
     const developerQuery = "SELECT developer_id FROM products WHERE product_id = $1"
@@ -24,11 +25,10 @@ const initialize = async (req, res) => {
     const private_key = keyResult.rows[0].private_key
     const public_key = keyResult.rows[0].public_key
 
+
     if (key !== private_key && key !== public_key) {
-      res
-      .status(StatusCodes.FORBIDDEN)
-      .json({ error: "Internal Server Error" });
-      return
+      res.status(StatusCodes.FORBIDDEN).json({ error: "Invalid Credentials" });
+      return;
     }
 
     req.body.callback_url = process.env.MELLA_CALLBACK;
@@ -92,11 +92,11 @@ VALUES ($1, $2, $3) RETURNING *;`;
       const values = [
         paymentInfo.payment_id,
         user_id,
-        paymentDetails.amount*4,
+        paymentDetails.amount * 4,
       ];
       await db.query(smuniQuery, values);
     }
-    // TODO : Use axios to handle request 
+    // TODO : Use axios to handle request
     const response = await requestPromise(options);
     // TODO : Validate jsonReponse before sending.
     const jsonResponse = JSON.parse(response.body);

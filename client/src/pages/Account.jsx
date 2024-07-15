@@ -57,7 +57,6 @@ const Account = () => {
   const { user } = useOutletContext();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
-  // console.log(user);
   const { first_name, last_name, email, phone_number, middle_name } = user;
 
   return (

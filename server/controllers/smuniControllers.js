@@ -1,4 +1,5 @@
 const { StatusCodes } = require("http-status-codes");
+const db = require("../models/db");
 // const axios = require("axios");
 require("dotenv").config();
 const request = require("request");
@@ -18,6 +19,7 @@ const buySmuni = async (req, res) => {
     const result = await db.query(query,[user_id])
 
     const {first_name, last_name, email, phone_number} = result.rows[0]
+
     const data = {
       amount: price,
       currency: "ETB",
@@ -37,6 +39,7 @@ const buySmuni = async (req, res) => {
         } Smunis from Mella.`,
       },
     };
+
 
     req.body.callback_url = process.env.MELLA_CALLBACK;
     authQuery = "SELECT private_key FROM developers WHERE developer_id = $1"
@@ -69,6 +72,18 @@ const payWithSmuni = async (req, res) => {
   try {
     // TODO: Implement pay with smuni
     const body = req.body;
+    
+    const { semuni_payment_id, product_id, user_id, amount } = body;
+
+    const smuniUpdateQuery = `UPDATE smuni_payments SET status = $1 ,user_id = $2 WHERE semuni_payment_id = $3 RETURNING *`;
+    const queryResult = await db.query(smuniUpdateQuery, [
+      true,
+      user_id,
+      semuni_payment_id,
+    ]);
+
+    const userUpdateQuery = `UPDATE users SET  semuni = semuni - $1  WHERE user_id = $2`;
+    const userQueryResult = await db.query(userUpdateQuery, [amount, user_id]);
     res.status(StatusCodes.OK).json({ msg: "Payment Successfull" });
   } catch (error) {
     console.error(error.stack);
@@ -79,8 +94,52 @@ const payWithSmuni = async (req, res) => {
 };
 const initializeWithSmuni = async (req, res) => {
   try {
-    const body = req.body;
-    res.status(StatusCodes.OK).json({ msg: "Payment Successfull" });
+    // TODO : Validation on the req.body
+    const key = req.headers.authorization;
+    const product_id = req.body.product_id;
+
+    const developerQuery =
+      "SELECT developer_id,name FROM products WHERE product_id = $1";
+    const developerResult = await db.query(developerQuery, [product_id]);
+    const developer_id = developerResult.rows[0].developer_id;
+    const product_name = developerResult.rows[0].name;
+
+    const keyQuery =
+      "SELECT private_key, public_key FROM developers WHERE developer_id = $1";
+    const keyResult = await db.query(keyQuery, [developer_id]);
+
+    const private_key = keyResult.rows[0].private_key;
+    const public_key = keyResult.rows[0].public_key;
+
+    if (key !== private_key && key !== public_key) {
+      res.status(StatusCodes.FORBIDDEN).json({ error: "Invalid Credentials" });
+      return;
+    }
+    const smuniPaymentForProduct = `SELECT * FROM smuni_payments WHERE product_id = $1`;
+    const qResult = await db.query(smuniPaymentForProduct, [product_id]);
+    const nextPayment = qResult.rowCount + 1;
+    const checkout_url = `${process.env.CLIENT_URL}dashboard/smuni-payment/${product_id}-${nextPayment}`;
+    const { amount, callback_url, return_url, customization } = req.body;
+    const { description } = customization;
+
+    const smuniPaymentInsertQuery = `
+      INSERT INTO smuni_payments (product_id,amount,description, callback_url, return_url,checkout_url) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
+    const smuniPaymentData = [
+      product_id,
+      amount,
+      description,
+      callback_url,
+      return_url,
+      checkout_url,
+    ];
+
+    const result = await db.query(smuniPaymentInsertQuery, smuniPaymentData);
+    const paymentInfo = result.rows[0];
+
+    res
+      .status(StatusCodes.CREATED)
+      .json({ message: "Hosted Link", data: { checkout_url: checkout_url } });
+
   } catch (error) {
     console.error(error.stack);
     res
@@ -92,15 +151,34 @@ const getSmuniPaymentData = async (req, res) => {
   const parts = req.params.id.split("-");
   const product_id = parts[0];
   const smuni_payment_id = parts[1];
+  const checkout_url = `${process.env.CLIENT_URL}dashboard/smuni-payment/${product_id}-${smuni_payment_id}`;
+
+  const smuniPaymentDataQuery = `SELECT * FROM smuni_payments WHERE checkout_url = $1`;
+  const productDataQuery = `SELECT name FROM products WHERE product_id = $1`;
+  const smuniPaymentQueryData = await db.query(smuniPaymentDataQuery, [
+    checkout_url,
+  ]);
+  const productQueryData = await db.query(productDataQuery, [product_id]);
+
+  const productData = productQueryData.rows[0];
+  const smuniPaymentData = smuniPaymentQueryData.rows[0];
+
+  const { amount, description } = smuniPaymentData;
+  const { name } = productData;
 
   const data = {
     semuni_payment_id: smuni_payment_id,
     product_id: product_id,
-    product_name: "Tef Tef",
-    amount: 400,
-    description: "Service Payment for Netflix and Chill",
+    product_name: name,
+    amount: amount,
+    description: description,
   };
   res.status(StatusCodes.OK).json(data);
 };
 
-module.exports = { buySmuni, payWithSmuni, getSmuniPaymentData ,initializeWithSmuni};
+module.exports = {
+  buySmuni,
+  payWithSmuni,
+  getSmuniPaymentData,
+  initializeWithSmuni,
+};

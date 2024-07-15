@@ -26,7 +26,6 @@ const Product = () => {
   const { user } = useOutletContext();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
-  // console.log(user);
 
   return (
     <Wrapper>

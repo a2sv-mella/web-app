@@ -21,13 +21,11 @@ export const action = async ({ request }) => {
   const data = Object.fromEntries(formData);
 
   if (Object.keys(data).length === 0) {
-    console.log("Object is empty");
     toast.warn("Please select Amount of Smunis.");
     return null;
   }
 
   try {
-
     const result = await customFetch.post("/smuni/buy", {price: data.price});
     const checkout_url = result.data.data.checkout_url
     return redirect(checkout_url);
