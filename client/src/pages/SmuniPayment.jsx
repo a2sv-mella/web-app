@@ -12,10 +12,9 @@ import customFetch from "../utils/customFetch";
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
-
   try {
     await customFetch.post("/smuni/pay", data);
-    toast.success("User data updated Successfully.");
+    toast.success("Payment Successfully Done.");
     return redirect("/dashboard");
   } catch (errors) {
     toast.warn("Invalid Credentials.");
@@ -26,8 +25,7 @@ export const action = async ({ request }) => {
 
 export const loader = async ({ params }) => {
   try {
-    const {data} = await customFetch.get(`/smuni/get/${params.id}`);
-    console.log(data)
+    const { data } = await customFetch.get(`/smuni/get/${params.id}`);
     return { data };
   } catch (error) {
     alert("Can't find Job to edit");
@@ -43,7 +41,7 @@ const SmuniPayment = () => {
     data;
   const { semuni, user_id } = user;
   const isSubmitting = navigation.state === "submitting";
-  if (semuni > amount) {
+  if (semuni < amount) {
     return <NotEnoughSmuni />;
   } else {
     return (

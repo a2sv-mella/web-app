@@ -1,7 +1,5 @@
 const EnoughSmuni = (paymentData) => {
   const { product_name, amount, description } = paymentData;
-  console.log(product_name, amount, description, paymentData);
-
   return (
     <div className="flex flex-col justify-center m-10">
       <h2 className="text-3xl font-semibold mb-10">Payment Details</h2>

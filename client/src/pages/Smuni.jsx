@@ -21,13 +21,11 @@ export const action = async ({ request }) => {
   const data = Object.fromEntries(formData);
 
   if (Object.keys(data).length === 0) {
-    console.log("Object is empty");
     toast.warn("Please select Amount of Smunis.");
     return null;
   }
 
   try {
-    console.log(data);
     // await customFetch.post("/users/update-user", user_data);
     toast.success("User data updated Successfully.");
     return redirect(".");
