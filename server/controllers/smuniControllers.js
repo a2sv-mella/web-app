@@ -1,5 +1,5 @@
 const { StatusCodes } = require("http-status-codes");
-const axios = require("axios");
+// const axios = require("axios");
 const buySmuni = async (req, res) => {
   try {
     // TODO: Implement buy smuni
@@ -8,7 +8,7 @@ const buySmuni = async (req, res) => {
     const currentTime = new Date().getTime();
     const tx_ref = `melatest-${random}-${currentTime}`;
 
-    console.log(tx_ref,price);
+    console.log(tx_ref, price);
     const data = {
       amount: price,
       currency: "ETB",
@@ -39,7 +39,9 @@ const buySmuni = async (req, res) => {
 const payWithSmuni = async (req, res) => {
   try {
     // TODO: Implement pay with smuni
-    // Retrieves campaign data for specific campaign.
+    const body = req.body;
+    console.log(body);
+    res.status(StatusCodes.OK).json({ msg: "Payment Successfull" });
   } catch (error) {
     console.error(error.stack);
     res
@@ -47,5 +49,32 @@ const payWithSmuni = async (req, res) => {
       .json({ error: "Internal Server Error" });
   }
 };
+const initializeWithSmuni = async (req, res) => {
+  try {
+    // TODO: Implement pay with smuni
+    const body = req.body;
+    console.log(body); 
+    res.status(StatusCodes.OK).json({ msg: "Payment Successfull" });
+  } catch (error) {
+    console.error(error.stack);
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ error: "Internal Server Error" });
+  }
+};
+const getSmuniPaymentData = async (req, res) => {
+  const parts = req.params.id.split("-");
+  const product_id = parts[0];
+  const smuni_payment_id = parts[1];
 
-module.exports = { buySmuni, payWithSmuni };
+  const data = {
+    semuni_payment_id: smuni_payment_id,
+    product_id: product_id,
+    product_name: "Tef Tef",
+    amount: 400,
+    description: "Service Payment for Netflix and Chill",
+  };
+  res.status(StatusCodes.OK).json(data);
+};
+
+module.exports = { buySmuni, payWithSmuni, getSmuniPaymentData ,initializeWithSmuni};
