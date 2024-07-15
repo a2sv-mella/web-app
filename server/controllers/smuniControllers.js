@@ -1,34 +1,63 @@
 const { StatusCodes } = require("http-status-codes");
 // const axios = require("axios");
+require("dotenv").config();
+const request = require("request");
+const { promisify } = require("util");
+const db = require("../models/db.js");
+
+const requestPromise = promisify(request);
 const buySmuni = async (req, res) => {
   try {
-    // TODO: Implement buy smuni
-    const { price } = req.body;
+    const {price} = req.body;
+    const user_id = req.user["user_id"]
     const random = Math.floor(Math.random() * 10000);
     const currentTime = new Date().getTime();
     const tx_ref = `melatest-${random}-${currentTime}`;
+    
+    const query = "SELECT first_name,last_name,email,phone_number FROM users WHERE user_id = $1"
+    const result = await db.query(query,[user_id])
 
-    console.log(tx_ref, price);
+    const {first_name, last_name, email, phone_number} = result.rows[0]
     const data = {
       amount: price,
       currency: "ETB",
-      email: "mella@gmail.com",
-      first_name: "Mella",
-      last_name: "StartUp",
-      phone_number: "0912345678",
+      user_id: user_id,
+      email: email,
+      first_name: first_name,
+      last_name: last_name,
+      phone_number: "0913405421",
+      product_id: 1,
+      developer_id: 1,
       payment_type: "smuni",
       tx_ref: tx_ref,
-      sender_callback: "http://127.0.0.1:8050",
-      return_url: "http://127.0.0.1:5173/dashboard/",
       customization: {
-        title: "Payment for Smuni",
-        description: `This payment is being made to by ${
+        title: "Smuni Payment",
+        description: `to buy ${
           price * 4
         } Smunis from Mella.`,
       },
     };
 
-    console.log(price);
+    req.body.callback_url = process.env.MELLA_CALLBACK;
+    authQuery = "SELECT private_key FROM developers WHERE developer_id = $1"
+    const authResult = await db.query(authQuery, [data.developer_id])
+    const private_key = authResult.rows[0].private_key
+    const options = {
+      method: "POST",
+      url: process.env.MELLA_INITIALIZE,
+      headers: {
+        authorization: private_key,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+
+    
+    const response = await requestPromise(options);
+    const jsonResponse = JSON.parse(response.body);
+
+    res.send(jsonResponse);
+
   } catch (error) {
     console.error(error.stack);
     res
@@ -40,7 +69,6 @@ const payWithSmuni = async (req, res) => {
   try {
     // TODO: Implement pay with smuni
     const body = req.body;
-    console.log(body);
     res.status(StatusCodes.OK).json({ msg: "Payment Successfull" });
   } catch (error) {
     console.error(error.stack);
@@ -51,9 +79,7 @@ const payWithSmuni = async (req, res) => {
 };
 const initializeWithSmuni = async (req, res) => {
   try {
-    // TODO: Implement pay with smuni
     const body = req.body;
-    console.log(body); 
     res.status(StatusCodes.OK).json({ msg: "Payment Successfull" });
   } catch (error) {
     console.error(error.stack);
