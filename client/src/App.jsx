@@ -26,10 +26,12 @@ import { action as loginAction } from "./pages/Login";
 import { action as registerAction } from "./pages/Register";
 import { action as productAction } from "./pages/Product";
 import { action as accountAction } from "./pages/Account";
+import {action as campaignAction} from "./components/CreateCampaign";
 
 import { loader as dashboardLoader } from "./pages/DashboardLayout";
-import { loader as transactionLoader } from "./pages/Transactions"
+import { loader as transactionLoader } from "./pages/Transactions";
 import { loader as crowdFundingLoader } from "./pages/UserCrowdfunding";
+import { loader as DeveloperCrowdfundingLoader } from "./pages/DeveloperCrowdfunding";
 
 const router = createBrowserRouter([
   {
@@ -58,7 +60,7 @@ const router = createBrowserRouter([
           {
             path: "transactions",
             element: <Transactions />,
-            loader: transactionLoader
+            loader: transactionLoader,
           },
           {
             path: "user-crowd",
@@ -68,6 +70,8 @@ const router = createBrowserRouter([
           {
             path: "developer-crowd",
             element: <DeveloperCrowdfunding />,
+            loader: DeveloperCrowdfundingLoader,
+            action: campaignAction,
           },
           {
             path: "donations",
