@@ -5,7 +5,7 @@ import {
   redirect,
   Form,
 } from "react-router-dom";
-// import customFetch from "../utils/customFetch";
+import customFetch from "../utils/customFetch";
 import { toast } from "react-toastify";
 
 const starOptions = [
@@ -26,12 +26,13 @@ export const action = async ({ request }) => {
   }
 
   try {
-    // await customFetch.post("/users/update-user", user_data);
-    toast.success("User data updated Successfully.");
-    return redirect(".");
+    const result = await customFetch.post("/smuni/buy", {price: data.price});
+    const checkout_url = result.data.data.checkout_url
+    return redirect(checkout_url);
   } catch (errors) {
-    toast.warn("Invalid Credentials.");
-    errors.msg = "Invalid Credentials";
+
+    toast.warn("Payment not successful");
+    errors.msg = "Payment not sucessful";
     return errors;
   }
 };

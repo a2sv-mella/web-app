@@ -50,7 +50,7 @@ app.use(
   transRouter
 );
 app.use("/api/v1/payments",paymentRouter);
-app.use("/api/v1/smuni", smuniRouter);
+app.use("/api/v1/smuni", authenticateUser, smuniRouter);
 app.use("/api/v1/campaigns", authenticateUser, campaignRouter);
 app.use("/api/v1/users", authenticateUser, userRouter);
 app.use(
