@@ -86,7 +86,7 @@ const initialize = async (req, res) => {
     if (paymentDetails.payment_type === "smuni") {
       const user_id = req.body["user_id"];
       const smuniQuery = `
-      INSERT INTO semuni (payment_id, user_id, amount)
+      INSERT INTO smuni (payment_id, user_id, amount)
 VALUES ($1, $2, $3) RETURNING *;`;
 
       const values = [
@@ -159,11 +159,11 @@ const verify = async (req, res) => {
   
     if (payment_type === "smuni") {
 
-      const smuniQuery = "SELECT user_id FROM semuni WHERE payment_id = $1"
+      const smuniQuery = "SELECT user_id FROM smuni WHERE payment_id = $1"
       const smuniResult = await db.query(smuniQuery, [payment_id])
       const user_id = smuniResult.rows[0].user_id
 
-      const increaseSmuni = "UPDATE users SET semuni = semuni + $1 WHERE user_id = $2"
+      const increaseSmuni = "UPDATE users SET smuni = smuni + $1 WHERE user_id = $2"
       await db.query(increaseSmuni, [amount * 4, user_id])
   }
     res.status(StatusCodes.OK).json({message: "Purchase successfully made"});

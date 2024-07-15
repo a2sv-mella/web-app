@@ -1,6 +1,6 @@
 ```SQL
 CREATE TABLE smuni_payments (
-    semuni_payment_id SERIAL PRIMARY KEY,
+    smuni_payment_id SERIAL PRIMARY KEY,
     product_id INT,
     user_id INT NULL,
     amount INT,

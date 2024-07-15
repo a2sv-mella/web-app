@@ -50,7 +50,7 @@ const Smuni = () => {
   return (
     <Form method="post" className="p-6 rounded-lg shadow-md">
       <h2 className="text-blue-950 text-xl font-semibold mb-6">
-        You currently have {user.semuni} Smunis
+        You currently have {user.smuni} Smunis
       </h2>
       <div>
         {starOptions.slice(0, 4).map((option) => (

@@ -1,6 +1,6 @@
 ```SQL
-CREATE TABLE semuni (
-    semuni_id SERIAL PRIMARY KEY,
+CREATE TABLE smuni (
+    smuni_id SERIAL PRIMARY KEY,
     payment_id INT,
     user_id INT,
     amount INT,
