@@ -11,4 +11,7 @@ export { default as AboutBody } from "./Aboutbody";
 export { default as SearchContainer } from "./SearchContainer";
 export { default as CrowdFundsContainer } from "./CrowdFundsContainer";
 
-export {default as FormRowSelect} from "./FormRowSelect";
+export { default as FormRowSelect } from "./FormRowSelect";
+
+export { default as EnoughSmuni } from "./EnoughSmuni";
+export { default as NotEnoughSmuni } from "./NotEnoughSmuni";

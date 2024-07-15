@@ -28,7 +28,7 @@ const CrowdFund = ({ id, developer, company_name, location, createdAt }) => {
         </div>
         <footer className="actions">
           <Link to={`../apply-crowdfund/${id}`} className="btn apply-btn">
-            Apply
+            Buy Share
           </Link>
         </footer>
       </div>

@@ -19,6 +19,7 @@ import {
   DeveloperCrowdfunding,
   Donations,
   Smuni,
+  SmuniPayment,
   Transactions,
   ApplyCrowdFund,
 } from "./pages";
@@ -27,10 +28,12 @@ import { action as registerAction } from "./pages/Register";
 import { action as productAction } from "./pages/Product";
 import { action as accountAction } from "./pages/Account";
 import { action as smuniAction } from "./pages/Smuni";
+import { action as smuniPaymentAction } from "./pages/SmuniPayment";
 
 import { loader as dashboardLoader } from "./pages/DashboardLayout";
 import { loader as transactionLoader } from "./pages/Transactions";
 import { loader as crowdFundingLoader } from "./pages/UserCrowdfunding";
+import { loader as smuniPaymentLoader } from "./pages/SmuniPayment";
 
 const router = createBrowserRouter([
   {
@@ -87,6 +90,12 @@ const router = createBrowserRouter([
             path: "smuni",
             element: <Smuni />,
             action: smuniAction,
+          },
+          {
+            path: "smuni-payment/:id",
+            element: <SmuniPayment />,
+            loader: smuniPaymentLoader,
+            action: smuniPaymentAction,
           },
           {
             path: "apply-crowdfund/:id",
