@@ -28,12 +28,14 @@ import { action as loginAction } from "./pages/Login";
 import { action as registerAction } from "./pages/Register";
 import { action as productAction } from "./pages/Product";
 import { action as accountAction } from "./pages/Account";
+import {action as campaignAction} from "./components/CreateCampaign";
 import { action as smuniAction } from "./pages/Smuni";
 import { action as smuniPaymentAction } from "./pages/SmuniPayment";
 
 import { loader as dashboardLoader } from "./pages/DashboardLayout";
 import { loader as transactionLoader } from "./pages/Transactions";
 import { loader as crowdFundingLoader } from "./pages/UserCrowdfunding";
+import { loader as DeveloperCrowdfundingLoader } from "./pages/DeveloperCrowdfunding";
 import { loader as smuniPaymentLoader } from "./pages/SmuniPayment";
 // import { loader as productLoader } from "./pages/Product";
 
@@ -102,6 +104,8 @@ const router = createBrowserRouter([
           {
             path: "developer-crowd",
             element: <DeveloperCrowdfunding />,
+            loader: DeveloperCrowdfundingLoader,
+            action: campaignAction,
           },
           {
             path: "donations",

@@ -7,12 +7,11 @@ export { default as BigSidebar } from "./BigSidebar";
 export { default as SmallSidebar } from "./SmallSidebar";
 export { default as Navbar } from "./Navbar";
 export { default as AboutBody } from "./Aboutbody";
-
 export { default as SearchContainer } from "./SearchContainer";
 export { default as CrowdFundsContainer } from "./CrowdFundsContainer";
-
+export{default as CreateCampaign} from "./CreateCampaign";
+export {default as ShowCampaignStats} from "./ShowCampaignStats";
 export { default as FormRowSelect } from "./FormRowSelect";
-
 export { default as EnoughSmuni } from "./EnoughSmuni";
 export { default as NotEnoughSmuni } from "./NotEnoughSmuni";
 export { default as LandingPageSmallSideBar } from "./LandingPageSmallSidebar";

@@ -8,7 +8,8 @@ const CrowdFundingContext = createContext();
 
 export const loader = async () => {
   try {
-    // const { data } = await customFetch.get("/available-crowdfunds");
+    const { data } = await customFetch.get("campaigns/available"); 
+    /*
     const data = {
       fundsFound: [
         {
@@ -34,6 +35,7 @@ export const loader = async () => {
         },
       ],
     };
+    */
     return {
       data,
     };
