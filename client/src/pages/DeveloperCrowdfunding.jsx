@@ -7,10 +7,40 @@ import {
 } from "react-router-dom";
 
 import { ShowCampaignStats, CreateCampaign } from "../components";
-// import Wrapper from "../assets/wrappers/BigSidebar";
 import { HomePageNavbar } from "../components";
-// import Wrapper from "../assets/wrappers/LandingPage";
 import Wrapper from "../assets/wrappers/Product";
+///////////////////////////////////////////////
+
+import React, { useEffect, useState } from 'react';
+import ShowCampaignStats from './ShowCampaignStats';
+
+const ParentComponent = ({ campaignId }) => {
+  const [campaignDetails, setCampaignDetails] = useState({});
+
+  useEffect(() => {
+    const fetchCampaignDetails = async () => {
+      try {
+        const response = await fetch(`/api/campaigns/${campaignId}`);
+        const data = await response.json();
+        setCampaignDetails(data);
+      } catch (error) {
+        console.error('Failed to fetch campaign details:', error);
+      }
+    };
+
+    fetchCampaignDetails();
+  }, [campaignId]);
+
+  return (
+    <div>
+      {/* Pass fetched data as props */}
+      <ShowCampaignStats {...campaignDetails} />
+    </div>
+  );
+};
+
+/////////////////////////////////////////////
+
 
 export const loader = async () => {
   try {

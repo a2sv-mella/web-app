@@ -1,27 +1,34 @@
 import React from "react";
 import { Form } from "react-router-dom";
-
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
 
   console.log(data);
-  
-  // TODO : add more data validation
-  
 
   try {
-    
-    // await customFetch.post("/users/update-user", user_data);
-    toast.success("User data updated Successfully.");
+    // Assuming your backend endpoint for creating a campaign is '/campaigns/create'
+    const response = await fetch("/campaigns/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // Include other headers as needed, for example, authorization headers
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    toast.success("Campaign created successfully.");
     return redirect(".");
-  } catch (errors) {
-    toast.warn("Invalid Credentials.");
-    errors.msg = "Invalid Credentials";
-    return errors;
+  } catch (error) {
+    console.error("Error creating campaign:", error);
+    toast.warn("Failed to create campaign.");
+    return { errors: { msg: "Failed to create campaign" } };
   }
 };
-
 
 
 const CreateCampaign = () => {
