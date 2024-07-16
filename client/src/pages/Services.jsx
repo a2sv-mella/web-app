@@ -7,7 +7,7 @@ const Services = () => {
 
   return (
     <Wrapper>
-      <HomePageNavbar location={location} />
+      {/* <HomePageNavbar location={location} /> */}
       <div className="container page">
         <ServicesBody />
       </div>

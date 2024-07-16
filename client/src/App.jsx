@@ -13,6 +13,7 @@ import {
   Register,
   Services,
   DashboardLayout,
+  CompanyLayout,
   Account,
   Product,
   UserCrowdfunding,
@@ -45,10 +46,38 @@ const router = createBrowserRouter([
         index: true,
         element: <Landing />,
       },
+      //COMPANY
       {
-        path: "about",
-        element: <About />,
+        path: "company",
+        element: <CompanyLayout />,
+        children: [
+          {
+            path: "about",
+            element: <About />,
+          },
+          {
+            path: "contact",
+            element: <Contact />,
+          },
+          {
+            path: "demo",
+            element: <Demos />,
+          },
+          {
+            path: "pricing",
+            element: <Pricing />,
+          },
+          {
+            path: "services",
+            element: <Services />,
+          },
+          {
+            path: "docs",
+            element: <Docs />,
+          },
+        ],
       },
+      //DASHBOARD
       {
         path: "dashboard",
         element: <DashboardLayout />,
@@ -102,26 +131,6 @@ const router = createBrowserRouter([
             element: <ApplyCrowdFund />,
           },
         ],
-      },
-      {
-        path: "contact",
-        element: <Contact />,
-      },
-      {
-        path: "demo",
-        element: <Demos />,
-      },
-      {
-        path: "pricing",
-        element: <Pricing />,
-      },
-      {
-        path: "services",
-        element: <Services />,
-      },
-      {
-        path: "docs",
-        element: <Docs />,
       },
       {
         path: "login",

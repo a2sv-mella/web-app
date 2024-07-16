@@ -15,3 +15,5 @@ export { default as FormRowSelect } from "./FormRowSelect";
 
 export { default as EnoughSmuni } from "./EnoughSmuni";
 export { default as NotEnoughSmuni } from "./NotEnoughSmuni";
+export { default as LandingPageSmallSideBar } from "./LandingPageSmallSidebar";
+export { default as CompanySmallSideBar } from "./CompanySmallSideBar";

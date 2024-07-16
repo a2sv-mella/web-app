@@ -6,8 +6,8 @@ const Demo = () => {
   const location = useLocation();
   return (
     <Wrapper>
-      <HomePageNavbar location={location} />
-      <div className="container page">
+      {/* <HomePageNavbar location={location} /> */}
+      <div className="container bg-white">
         <DemosBody />
       </div>
     </Wrapper>

@@ -92,19 +92,21 @@ export const serviceCards = [
   {
     title: "Payments",
     description:
-      "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim",
+      "Secure payment gateway, allowing users to fund campaigns, purchase subscriptions, and support developers directly.",
   },
   {
     title: "Semuni",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+      "A novel system that allows users to contribute micro-payments to developers, providing them with immediate financial leverage.",
   },
   {
     title: "Crowd Funding",
-    description: "crowdfunding campaigns to raise funds for projects",
+    description:
+      "Developers can easily launch crowdfunding campaigns to raise funds for their projects, enabling them to gather support from users and investors.",
   },
   {
     title: "Amesgnalehu",
-    description: "users can directly support free service through donations.",
+    description:
+      "Facilitate a simple platform for users to directly support developers through micro-donations for the free services developers provide.",
   },
 ];

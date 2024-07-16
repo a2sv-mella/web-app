@@ -7,8 +7,8 @@ const Contact = () => {
 
   return (
     <Wrapper>
-      <HomePageNavbar location={location} />
-      <div className="container page">
+      {/* <HomePageNavbar location={location} /> */}
+      <div className="container">
         <ContactBody />
       </div>
     </Wrapper>
