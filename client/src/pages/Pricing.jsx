@@ -6,7 +6,7 @@ const Pricing = () => {
 
   return (
     <Wrapper>
-      <HomePageNavbar location={location}/>
+      {/* <HomePageNavbar location={location}/> */}
       <div className="container">
         <PricingBody />
       </div>

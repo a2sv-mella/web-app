@@ -1,23 +1,23 @@
-import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { FaPlayCircle, FaLightbulb } from "react-icons/fa";
 
 const DemosBody = () => {
   return (
-    <div className="container mx-auto px-4 py-16">
-      <h2 className="text-2xl font-bold mb-4 text-center">
+    <div className="w-full mx-auto">
+      <h2 className="text-2xl font-bold mb-2  bg-white text-center">
         Mella: simplify all your payments
       </h2>
       <div className="flex flex-col justify-around items-center mb-8">
-        <div className="w-full rounded-lg shadow-md bg-blue-100 p-6 hover:translate-y-[-8px] transition-transform duration-300 ease-in-out flex flex-col items-center space-y-4">
+        <div className="rounded-lg shadow-md bg-transparent p-6 hover:translate-y-[-8px] transition-transform duration-300 ease-in-out flex flex-col items-center space-y-4">
           <iframe
-            className="w-full aspect-video"
-            src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+            width="560"
+            height="315"
+            src={import.meta.env.VITE_YOUTUBE_URL}
             title="YouTube video player"
             frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowfullscreen
           ></iframe>
         </div>
       </div>

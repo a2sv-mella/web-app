@@ -6,9 +6,33 @@ const db = require("../models/db.js");
 
 const requestPromise = promisify(request);
 const initialize = async (req, res) => {
+
+
   try {
     // TODO : Validation on the req.body
+    const key = req.headers.authorization;
+    const product_id = req.body.product_id;
+
+
+
+    const developerQuery = "SELECT developer_id FROM products WHERE product_id = $1"
+    const developerResult = await db.query(developerQuery, [product_id])
+    const developer_id = developerResult.rows[0].developer_id
+
+    const keyQuery = "SELECT private_key, public_key FROM developers WHERE developer_id = $1"
+    const keyResult = await db.query(keyQuery, [developer_id])
+    
+    const private_key = keyResult.rows[0].private_key
+    const public_key = keyResult.rows[0].public_key
+
+
+    if (key !== private_key && key !== public_key) {
+      res.status(StatusCodes.FORBIDDEN).json({ error: "Invalid Credentials" });
+      return;
+    }
+
     req.body.callback_url = process.env.MELLA_CALLBACK;
+    
     const options = {
       method: "POST",
       url: process.env.CHAPA_URL,
@@ -18,6 +42,7 @@ const initialize = async (req, res) => {
       },
       body: JSON.stringify(req.body),
     };
+
     let paymentDetails = JSON.parse(options.body);
 
     const query = `
@@ -40,7 +65,6 @@ const initialize = async (req, res) => {
       paymentDetails.customization["description"],
       paymentDetails.payment_type,
     ];
-
     const result = await db.query(query, values);
     const paymentInfo = result.rows[0];
 
@@ -58,11 +82,25 @@ const initialize = async (req, res) => {
       ];
       await db.query(donationQuery, values);
     }
+
+    if (paymentDetails.payment_type === "smuni") {
+      const user_id = req.body["user_id"];
+      const smuniQuery = `
+      INSERT INTO smuni (payment_id, user_id, amount)
+VALUES ($1, $2, $3) RETURNING *;`;
+
+      const values = [
+        paymentInfo.payment_id,
+        user_id,
+        paymentDetails.amount * 4,
+      ];
+      await db.query(smuniQuery, values);
+    }
     // TODO : Use axios to handle request
     const response = await requestPromise(options);
-
     // TODO : Validate jsonReponse before sending.
     const jsonResponse = JSON.parse(response.body);
+
     res.send(jsonResponse);
   } catch (error) {
     console.error(error.stack);
@@ -91,6 +129,8 @@ const verify = async (req, res) => {
 
     const callback_url = selectResult.rows[0].callback_url;
     const payment_id = selectResult.rows[0].payment_id;
+    const payment_type = selectResult.rows[0].payment_type;
+    const amount = selectResult.rows[0].amount;
     const date = new Date();
     const timestampWithOptions = date.toLocaleString("en-US", {
       timeZone: "Africa/Nairobi",
@@ -115,8 +155,18 @@ const verify = async (req, res) => {
       };
       const response = await requestPromise(options);
     }
-    
-    res.status(StatusCodes.OK).json(result.rows[0]);
+
+  
+    if (payment_type === "smuni") {
+
+      const smuniQuery = "SELECT user_id FROM smuni WHERE payment_id = $1"
+      const smuniResult = await db.query(smuniQuery, [payment_id])
+      const user_id = smuniResult.rows[0].user_id
+
+      const increaseSmuni = "UPDATE users SET smuni = smuni + $1 WHERE user_id = $2"
+      await db.query(increaseSmuni, [amount * 4, user_id])
+  }
+    res.status(StatusCodes.OK).json({message: "Purchase successfully made"});
   } catch (error) {
     console.error(error.stack);
     res

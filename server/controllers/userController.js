@@ -20,12 +20,17 @@ const getCurrentUser = async (req, res) => {
     delete user.password;
 
     if (user.role === "developer") {
-      const query =
-        "SELECT private_key,public_key,encryption_key FROM developers WHERE user_id = $1";
+      const query = "SELECT private_key,public_key,encryption_key,developer_id FROM developers WHERE user_id = $1";
       const result = await db.query(query, [user_id]);
-      user.private_key = result.rows[0].private_key;
-      user.public_key = result.rows[0].public_key;
-      user.encryption_key = result.rows[0].encryption_key;
+      user.private_key = result.rows[0].private_key
+      user.public_key = result.rows[0].public_key
+      user.encryption_key = result.rows[0].encryption_key
+      user.developer_id = result.rows[0].developer_id
+
+      const productQuery =  `SELECT product_id FROM products WHERE developer_id = $1`
+      const productQueryResult = await db.query(productQuery, [user.developer_id]);
+
+      user.product_id = productQueryResult?.rows[0]?.product_id;
     }
 
     res.status(StatusCodes.OK).json({ user });

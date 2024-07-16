@@ -13,12 +13,14 @@ import {
   Register,
   Services,
   DashboardLayout,
+  CompanyLayout,
   Account,
   Product,
   UserCrowdfunding,
   DeveloperCrowdfunding,
   Donations,
   Smuni,
+  SmuniPayment,
   Transactions,
   ApplyCrowdFund,
 } from "./pages";
@@ -27,11 +29,15 @@ import { action as registerAction } from "./pages/Register";
 import { action as productAction } from "./pages/Product";
 import { action as accountAction } from "./pages/Account";
 import {action as campaignAction} from "./components/CreateCampaign";
+import { action as smuniAction } from "./pages/Smuni";
+import { action as smuniPaymentAction } from "./pages/SmuniPayment";
 
 import { loader as dashboardLoader } from "./pages/DashboardLayout";
 import { loader as transactionLoader } from "./pages/Transactions";
 import { loader as crowdFundingLoader } from "./pages/UserCrowdfunding";
 import { loader as DeveloperCrowdfundingLoader } from "./pages/DeveloperCrowdfunding";
+import { loader as smuniPaymentLoader } from "./pages/SmuniPayment";
+// import { loader as productLoader } from "./pages/Product";
 
 const router = createBrowserRouter([
   {
@@ -43,10 +49,38 @@ const router = createBrowserRouter([
         index: true,
         element: <Landing />,
       },
+      //COMPANY
       {
-        path: "about",
-        element: <About />,
+        path: "company",
+        element: <CompanyLayout />,
+        children: [
+          {
+            path: "about",
+            element: <About />,
+          },
+          {
+            path: "contact",
+            element: <Contact />,
+          },
+          {
+            path: "demo",
+            element: <Demos />,
+          },
+          {
+            path: "pricing",
+            element: <Pricing />,
+          },
+          {
+            path: "services",
+            element: <Services />,
+          },
+          {
+            path: "docs",
+            element: <Docs />,
+          },
+        ],
       },
+      //DASHBOARD
       {
         path: "dashboard",
         element: <DashboardLayout />,
@@ -81,40 +115,28 @@ const router = createBrowserRouter([
             path: "product",
             element: <Product />,
             action: productAction,
+            loader: productLoader,
           },
-          {
-            path: "balance",
-            element: <Balance />,
-          },
+          // {
+          //   path: "balance",
+          //   element: <Balance />,
+          // },
           {
             path: "smuni",
             element: <Smuni />,
+            action: smuniAction,
+          },
+          {
+            path: "smuni-payment/:id",
+            element: <SmuniPayment />,
+            loader: smuniPaymentLoader,
+            action: smuniPaymentAction,
           },
           {
             path: "apply-crowdfund/:id",
             element: <ApplyCrowdFund />,
           },
         ],
-      },
-      {
-        path: "contact",
-        element: <Contact />,
-      },
-      {
-        path: "demo",
-        element: <Demos />,
-      },
-      {
-        path: "pricing",
-        element: <Pricing />,
-      },
-      {
-        path: "services",
-        element: <Services />,
-      },
-      {
-        path: "docs",
-        element: <Docs />,
       },
       {
         path: "login",

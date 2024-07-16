@@ -4,7 +4,7 @@ import { FaXTwitter } from "react-icons/fa6"; // Corrected import for Twitter ic
 
 const ContactBody = () => {
   return (
-    <div className="container mx-auto px-4 py-16">
+    <div className="container mx-auto px-4 py-4">
       <h2 className="text-2xl font-bold mb-4 text-center">Contact Us</h2>
       <div className="w-full max-w-md mx-auto">
         <form className="bg-blue-100 shadow-md rounded-lg p-6 space-y-2">
@@ -51,24 +51,25 @@ const ContactBody = () => {
             ></textarea>
           </div>
           <button
-            type="submit"
+            type="button"
             className="btn bg-blue-500 text-white p-2 rounded"
           >
             Send
           </button>
         </form>
       </div>
-      <footer className="flex justify-center items-center mt-8 bg-blue-300 shadow-md rounded-lg p-2">
-        <div className="flex space-x-4">
-        <p>Phone: +123456789</p>
+
+      <footer className="flex justify-center items-center mt-8 bg-blue-300 shadow-md rounded-lg">
+        <div className="flex space-x-4 mt-4 text-black">
+          <p>Phone: +251949309145</p>
           <a href="#">
-            <FaFacebook className="text-2xl text-blue-600 hover:text-blue-800" />
+            <FaFacebook className="text-2xl hover:text-blue-800" />
           </a>
           <a href="#">
-            <FaInstagram className="text-2xl text-pink-600 hover:text-blue-800" />
+            <FaInstagram className="text-2xl hover:text-blue-800" />
           </a>
           <a href="#">
-            <FaXTwitter className="text-2xl text-blue-400 hover:text-blue-800" />
+            <FaXTwitter className="text-2xl hover:text-blue-800" />
           </a>
         </div>
       </footer>

@@ -5,11 +5,12 @@ import {
   useActionData,
   redirect,
 } from "react-router-dom";
+import { useState } from "react";
+import { toast } from "react-toastify";
+
 import Wrapper from "../assets/wrappers/RegisterAndLoginPage";
 import { FormRow, Logo } from "../components";
 import customFetch from "../utils/customFetch.js";
-import { toast } from "react-toastify";
-// import {toast} from "react-toastify";
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
@@ -45,15 +46,22 @@ export const action = async ({ request }) => {
   //TODO : send data to backend
   try {
     await customFetch.post("/auth/register", user_data);
-    toast.success("Registered Successfully")
+    toast.success("Registered Successfully");
     return redirect("/login");
   } catch (error) {
-    toast.warn("Email Already Used")
+    toast.warn("Invalid Credentials");
     return error;
   }
 };
 
 const Register = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Toggle function
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   const errors = useActionData();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
@@ -61,20 +69,25 @@ const Register = () => {
   return (
     <Wrapper>
       <Form method="post" className="form">
-        <Logo />
+        <Link to="/">
+          <Logo />
+        </Link>
         {errors?.msg && <p style={{ color: "red" }}>{errors.msg}</p>}
-        <div className="form-row-container" style={{ marginTop: "20px" }}>
+        <div className="form-row-container">
           <FormRow type="text" name="first Name" defaultValue="First Name" />
           <FormRow type="text" name="last Name" defaultValue="Last Name" />
         </div>
-        <FormRow type="email" name="email" defaultValue="youremail@gmail.com" />
+        <FormRow type="email" name="email" defaultValue="you@example.com" />
 
         <div className="form-row-container">
-          <FormRow type="password" name="password" defaultValue="password" />
           <FormRow
-            type="password"
+            type={showPassword ? "text" : "password"}
+            name="password"
+            defaultValue=""
+          />
+          <FormRow
+            type={showPassword ? "text" : "password"}
             name="confirm password"
-            defaultValue="password"
           />
         </div>
         <FormRow
@@ -82,20 +95,32 @@ const Register = () => {
           name="business name"
           defaultValue="Required for Developers"
         />
-        <div>
-          <input
-            type="checkbox"
-            name="is_developer"
-            className="form-check-input m-3 h-3 w-3"
-            id="developerCheck"
-            // checked={false}
-          />
-          <label className="m-2 h-3 font-bold" htmlFor="developerCheck">
-            Register as Developer
-          </label>
+        <div className="form-row-container m-2">
+          <div>
+            <input
+              type="checkbox"
+              name="is_developer"
+              className="form-check-input h-3 w-3"
+              id="developerCheck"
+            />
+            <label className="m-1 h-3 font-bold" htmlFor="developerCheck">
+              I am a Developer
+            </label>
+          </div>
+
+          <div>
+            <input
+              type="checkbox"
+              className="form-check-input h-3 mr-2 font-bold"
+              id="showPassword"
+              checked={showPassword}
+              onChange={togglePasswordVisibility}
+            />
+            <label htmlFor="showPassword">Show Password</label>
+          </div>
         </div>
         <button type="submit" className="btn btn-block" disabled={isSubmitting}>
-          {isSubmitting ? "submiting . . . " : "submit"}
+          {isSubmitting ? "submitting . . . " : "submit"}
         </button>
         <p>
           Already a member ?

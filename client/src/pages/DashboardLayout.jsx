@@ -3,19 +3,11 @@ import Wrapper from "../assets/wrappers/Dashboard";
 import { SmallSidebar, BigSidebar, Navbar } from "../components";
 import { createContext, useState, useContext } from "react";
 import customFetch from "../utils/customFetch";
+import { toast } from "react-toastify";
 
 export const loader = async () => {
   try {
     const { data } = await customFetch.get("/users/current-user");
-
-    // const data = {
-    //   user: {
-    //     first_name: "Dolphin",
-    //     last_name: "Mulugeta",
-    //     email: "email@email.com",
-    //     role: "developer",
-    //   },
-    // };
     if (!data) {
       return redirect("/");
     }
@@ -40,8 +32,7 @@ const DashboardLayout = () => {
   const logoutUser = async () => {
     navigate("/");
     await customFetch.get("/auth/logout");
-    // TODO: use toast instead of alert
-    alert("User logged out");
+    toast.success("User logged out");
   };
 
   return (

@@ -1,5 +1,33 @@
 const { StatusCodes } = require("http-status-codes");
 const db = require("../models/db");
+
+const getProduct = async (req, res) => {
+  try {
+    const user_id = req.user.user_id;
+
+    const developerQuery =
+      "SELECT developer_id FROM developers WHERE user_id = $1";
+    const developerResult = await db.query(developerQuery, [user_id]);
+    const developer_id = developerResult.rows[0].developer_id;
+
+    const productQuery = "SELECT * FROM products WHERE developer_id = $1";
+    const productResult = await db.query(productQuery, [developer_id]);
+    const productData = productResult.rows[0];
+
+    let product = {};
+    if (productData) {
+      product = productData;
+    }
+
+    res.status(StatusCodes.OK).json({ product });
+  } catch (error) {
+    console.error(error.stack);
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ error: "Internal Server Error" });
+  }
+};
+
 const updateProduct = async (req, res) => {
   try {
     //TODO : Implement updating product's details.
@@ -68,4 +96,4 @@ const updateProduct = async (req, res) => {
   }
 };
 
-module.exports = { updateProduct };
+module.exports = { updateProduct, getProduct };

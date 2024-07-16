@@ -10,7 +10,7 @@ CREATE TABLE users (
     password VARCHAR(255),
     role user_role DEFAULT 'user',
     phone_number VARCHAR(20),
-    semuni INT DEFAULT 0,
+    smuni INT DEFAULT 0,
     is_verified BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
