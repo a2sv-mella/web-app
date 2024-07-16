@@ -5,6 +5,7 @@ import CrowdFund from "./CrowdFund";
 const CrowdFundsContainer = () => {
   const { data } = useCrowdContext();
   const { fundsFound } = data;
+  console.log(fundsFound);
 
   if (fundsFound?.length === 0) {
     return (

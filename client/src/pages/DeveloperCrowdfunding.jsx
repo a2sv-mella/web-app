@@ -9,71 +9,49 @@ import {
 import { ShowCampaignStats, CreateCampaign } from "../components";
 import { HomePageNavbar } from "../components";
 import Wrapper from "../assets/wrappers/Product";
+import customFetch from "../utils/customFetch";
+
 ///////////////////////////////////////////////
 
 import React, { useEffect, useState } from 'react';
-import ShowCampaignStats from './ShowCampaignStats';
-
-const ParentComponent = ({ campaignId }) => {
-  const [campaignDetails, setCampaignDetails] = useState({});
-
-  useEffect(() => {
-    const fetchCampaignDetails = async () => {
-      try {
-        const response = await fetch(`/api/campaigns/${campaignId}`);
-        const data = await response.json();
-        setCampaignDetails(data);
-      } catch (error) {
-        console.error('Failed to fetch campaign details:', error);
-      }
-    };
-
-    fetchCampaignDetails();
-  }, [campaignId]);
-
-  return (
-    <div>
-      {/* Pass fetched data as props */}
-      <ShowCampaignStats {...campaignDetails} />
-    </div>
-  );
-};
-
-/////////////////////////////////////////////
+// import ShowCampaignStats from './ShowCampaignStats';
 
 
 export const loader = async () => {
   try {
-    // const { data } = await customFetch.get("/users/current-user");
-    const data = {};
+    const  {data}  = await customFetch.get(`/campaigns`);
+    console.log(data);
 
-    // const data = {
-    //   user: {
-    //     first_name: "Dolphin",
-    //     last_name: "Mulugeta",
-    //     email: "email@email.com",
-    //     role: "developer",
-    //   },
-    // };
-    if (!data) {
-      return redirect("/");
-    }
-    return { data };
+    // if (!data) {
+    //   return redirect("/");
+    // }
+    return  data ;
   } catch (error) {
-    return redirect("/");
+    return null;
   }
 };
-
 const DeveloperCrowdfunding = () => {
-  const { data } = useLoaderData();
+  const data = useLoaderData();
+  console.log(data);
   const navigate = useNavigation();
   const location = useLocation();
-  //  ask copilot how to check if data is empty object
-  if (false) {
-    return <CreateCampaign />;3
+
+  // Check if data is an empty object
+  const isDataEmpty =
+    data && Object.keys(data).length === 0 && data.constructor === Object;
+
+  if (isDataEmpty) {
+    return <CreateCampaign />;
   } else {
-    return <ShowCampaignStats />;
-  }
+  const { description, price_per_share, end_date } = data.campaign; 
+
+return (
+  <ShowCampaignStats
+    description={description}
+    price_per_share={price_per_share}
+    deadline={end_date}
+  />
+);  }
 };
 
 export default DeveloperCrowdfunding;

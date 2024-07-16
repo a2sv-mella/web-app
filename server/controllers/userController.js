@@ -19,6 +19,15 @@ const getCurrentUser = async (req, res) => {
     let user = result.rows[0];
     delete user.password;
 
+    if (user.role === "developer") {
+      const query =
+        "SELECT private_key,public_key,encryption_key FROM developers WHERE user_id = $1";
+      const result = await db.query(query, [user_id]);
+      user.private_key = result.rows[0].private_key;
+      user.public_key = result.rows[0].public_key;
+      user.encryption_key = result.rows[0].encryption_key;
+    }
+
     res.status(StatusCodes.OK).json({ user });
   } catch (error) {
     console.error(error.stack);

@@ -2,7 +2,7 @@ import React from "react";
 
 const ShowCampaignStats = ({
   description,
-  amountRaised,
+  price_per_share,
   companyPercentage,
   deadline,
 }) => {
@@ -15,7 +15,7 @@ const ShowCampaignStats = ({
       </div>
       <div>
         <p className="text-sm font-medium text-gray-700"> percentage Amount Raised:</p>
-        <p>${amountRaised}</p>
+        <p>${price_per_share}</p>
       </div>
       <div>
         <p className="text-sm font-medium text-gray-700">Company Percentage left :</p>
