@@ -35,6 +35,7 @@ import { loader as dashboardLoader } from "./pages/DashboardLayout";
 import { loader as transactionLoader } from "./pages/Transactions";
 import { loader as crowdFundingLoader } from "./pages/UserCrowdfunding";
 import { loader as smuniPaymentLoader } from "./pages/SmuniPayment";
+// import { loader as productLoader } from "./pages/Product";
 
 const router = createBrowserRouter([
   {
@@ -110,11 +111,12 @@ const router = createBrowserRouter([
             path: "product",
             element: <Product />,
             action: productAction,
+            loader: productLoader,
           },
-          {
-            path: "balance",
-            element: <Balance />,
-          },
+          // {
+          //   path: "balance",
+          //   element: <Balance />,
+          // },
           {
             path: "smuni",
             element: <Smuni />,

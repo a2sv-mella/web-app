@@ -26,6 +26,11 @@ const getCurrentUser = async (req, res) => {
       user.public_key = result.rows[0].public_key
       user.encryption_key = result.rows[0].encryption_key
       user.developer_id = result.rows[0].developer_id
+
+      const productQuery =  `SELECT product_id FROM products WHERE developer_id = $1`
+      const productQueryResult = await db.query(productQuery, [user.developer_id]);
+
+      user.product_id = productQueryResult?.rows[0]?.product_id;
     }
 
     res.status(StatusCodes.OK).json({ user });

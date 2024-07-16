@@ -88,17 +88,28 @@ const Account = () => {
           <FormRow type="password" name="confirm new password" />
         </div>
         {isDeveloper && (
-          <div className="">
-            <div className="form-center mt-15">
-              <p>
-                <strong>Public Key:</strong> {user.public_key}
-              </p>
-              <p>
-                <strong>Private Key:</strong> {user.private_key}
-              </p>
-              <p>
-                <strong>Encryption Key:</strong> {user.encryption_key}
-              </p>
+          <div className="mt-5 m-3">
+            <div className="flex mt-15">
+              <div className="flex-1">
+                <p>
+                  <strong>Public Key:</strong> {user.public_key}
+                </p>
+              </div>
+              <div className="flex-1">
+                <p>
+                  <strong>Private Key:</strong> {user.private_key}
+                </p>
+              </div>
+              <div className="flex-1">
+                <p>
+                  <strong>Encryption Key:</strong> {user.encryption_key}
+                </p>
+              </div>
+              <div className="flex-1">
+                <p>
+                  <strong>Product Id:</strong> {user.product_id ? user.product_id : "Unregistered."}
+                </p>
+              </div>
             </div>
 
             <div className="form-center">

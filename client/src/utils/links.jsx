@@ -30,11 +30,11 @@ const links = [
     path: "product",
     icon: <FaMedapps />,
   },
-  {
-    text: "Balance",
-    path: "balance",
-    icon: <LuWallet />,
-  },
+  // {
+  //   text: "Balance",
+  //   path: "balance",
+  //   icon: <LuWallet />,
+  // },
   {
     text: "Smuni",
     path: "smuni",
