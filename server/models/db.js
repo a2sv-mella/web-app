@@ -33,4 +33,4 @@ db.connect()
   .then(() => console.log("Connected to the PostgreSQL database"))
   .catch((err) => console.error("Connection error", err.stack));
 
-module.exports =  db;
+module.exports = db;

@@ -5,7 +5,6 @@ const {
 const { verifyJWT } = require("../utils/tokenUtils.js");
 
 const authenticateUser = async (req, res, next) => {
-  // console.log(req.cookies.token);
   const { token } = req.cookies;
   if (!token) throw new UnauthenticatedError("authentication invalid");
   try {
