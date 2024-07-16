@@ -29,7 +29,6 @@ if (process.env.NODE_ENV === "development") {
 app.use(express.json());
 
 const corsOptions = {
-  // origin: "http://localhost:5173",
   origin: true,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept",

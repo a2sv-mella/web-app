@@ -4,6 +4,7 @@ export { default as Demos } from "./Demos";
 export { default as Docs } from "./Docs";
 export { default as Error } from "./Error";
 export { default as HomeLayout } from "./HomeLayout";
+export { default as CompanyLayout } from "./CompanyLayout";
 export { default as Landing } from "./Landing";
 export { default as Login } from "./Login";
 export { default as Pricing } from "./Pricing";

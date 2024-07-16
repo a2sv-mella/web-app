@@ -5,6 +5,7 @@ import {
   useNavigation,
   useActionData,
 } from "react-router-dom";
+import { useState } from "react";
 import Wrapper from "../assets/wrappers/RegisterAndLoginPage";
 import { FormRow, Logo } from "../components";
 import customFetch from "../utils/customFetch.js";
@@ -33,23 +34,45 @@ const Login = () => {
   const navigation = useNavigation();
 
   const isSubmitting = navigation.state === "submitting";
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Toggle function
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   return (
     <Wrapper>
       <Form method="post" className="form">
-        <Logo />
+        <Link to="/">
+          <Logo />
+        </Link>
         {errors?.msg && <p style={{ color: "red" }}>{errors.msg}</p>}
-        <FormRow type="email" name="email" defaultValue="dolphin@gmail.com" />
-        <FormRow type="password" name="password" defaultValue="password" />
+        <FormRow type="email" name="email" defaultValue="you@example.com" />
+        <FormRow
+          type={showPassword ? "text" : "password"}
+          name="password"
+        />
+        <div>
+          <input
+            type="checkbox"
+            className="form-check-input m-3"
+            id="showPassword"
+            checked={showPassword}
+            onChange={togglePasswordVisibility}
+          />
+          <label htmlFor="showPassword">Show Password</label>
+        </div>
         <button type="submit" className="btn btn-block" disabled={isSubmitting}>
           {isSubmitting ? "Submitting . . ." : "Submit"}
         </button>
-      </Form>
       <p>
         Not a member yet?
         <Link to="/register" className="member-btn">
           Register
         </Link>
       </p>
+      </Form>
+
     </Wrapper>
   );
 };

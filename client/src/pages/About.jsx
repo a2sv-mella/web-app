@@ -6,7 +6,7 @@ const About = () => {
 
   return (
     <Wrapper>
-      <HomePageNavbar location={location} />
+      {/* <HomePageNavbar location={location} /> */}
       <div className="container page">
         <AboutBody />
       </div>

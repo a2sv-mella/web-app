@@ -9,7 +9,6 @@ import { FormRow } from "../components";
 import Wrapper from "../assets/wrappers/Product";
 import { toast } from "react-toastify";
 
-
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
@@ -58,6 +57,7 @@ const Account = () => {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
   const { first_name, last_name, email, phone_number, middle_name } = user;
+  const isDeveloper = user.role === "developer";
 
   return (
     <Wrapper>
@@ -87,16 +87,39 @@ const Account = () => {
           <FormRow type="password" name="new password" />
           <FormRow type="password" name="confirm new password" />
         </div>
+        {isDeveloper && (
+          <div className="">
+            <div className="form-center mt-15">
+              <p>
+                <strong>Public Key:</strong> {user.public_key}
+              </p>
+              <p>
+                <strong>Private Key:</strong> {user.private_key}
+              </p>
+              <p>
+                <strong>Encryption Key:</strong> {user.encryption_key}
+              </p>
+            </div>
 
-        <div className="form-center">
-          <button
-            type="submit"
-            className="btn btn-block form-btn"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Submitting" : "Submit"}
-          </button>
-        </div>
+            <div className="form-center">
+              <button
+                type="submit"
+                className="btn btn-block form-btn"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Submitting" : "Submit"}
+              </button>
+              <a
+                className="text-green-600 hover:text-geen-700 ml-auto"
+                href="https://telegra.ph/How-to-make-API-request-to-Mella-07-16"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                How to make API requests
+              </a>
+            </div>
+          </div>
+        )}
       </Form>
     </Wrapper>
   );
