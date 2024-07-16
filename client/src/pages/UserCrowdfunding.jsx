@@ -2,6 +2,7 @@ import { CrowdFundsContainer, SearchContainer } from "../components";
 import { useContext, createContext } from "react";
 import { useLoaderData } from "react-router-dom";
 import customFetch from "../utils/customFetch";
+import { toast } from "react-toastify";
 
 const CrowdFundingContext = createContext();
 
@@ -37,7 +38,7 @@ export const loader = async () => {
       data,
     };
   } catch (error) {
-    alert("Can't find Funds");
+    toast.warn("Can't find Funds");
     return error;
   }
 };

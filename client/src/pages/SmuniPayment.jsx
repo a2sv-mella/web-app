@@ -28,7 +28,7 @@ export const loader = async ({ params }) => {
     const { data } = await customFetch.get(`/smuni/get/${params.id}`);
     return { data };
   } catch (error) {
-    alert("Can't find Job to edit");
+    toast.warn("Can't find Job to edit");
     return redirect("/dashboard");
   }
 };

@@ -8,13 +8,14 @@ import customFetch from "../utils/customFetch";
 import { FormRow, FormRowSelect } from "../components";
 import Wrapper from "../assets/wrappers/Product";
 import { PRODUCT_TYPE } from "../utils/constants";
+import { toast } from "react-toastify";
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
   try {
     await customFetch.post("/product/edit", data);
-    alert("Product Edited Successfully");
+    toast.success("Product Edited Successfully");
     return redirect(".");
   } catch (error) {
     return error;
