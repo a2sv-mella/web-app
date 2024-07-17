@@ -12,7 +12,7 @@ export const action = async ({ request }) => {
     // console.log(response.status)
     if (response.status !== 200 ) {
       toast.warn("Failed to create campaign.");
-      return null;
+      return redirect("/dashboard");
     }
     
     toast.success("Campaign Created successfully.");
@@ -20,7 +20,7 @@ export const action = async ({ request }) => {
   } catch (error) {
     toast.warn("Failed to create campaign.");
     console.error("Error creating campaign:", error);
-    return null;
+    return redirect("/dashboard");
   }
 };
 

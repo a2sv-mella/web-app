@@ -14,7 +14,8 @@ export const loader = async () => {
     }
     return data;
   } catch (error) {
-    return null;
+    toast.warn("No Product Found ! Register a Product First");
+    return redirect("/dashboard");
   }
 };
 const DeveloperCrowdfunding = () => {

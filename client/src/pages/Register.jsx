@@ -93,7 +93,7 @@ const Register = () => {
         <FormRow
           type="text"
           name="business name"
-          defaultValue="Required for Developers"
+          defaultValue=""
         />
         <div className="form-row-container m-2">
           <div>
