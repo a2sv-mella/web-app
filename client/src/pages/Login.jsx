@@ -17,13 +17,13 @@ export const action = async ({ request }) => {
 
   // TODO : add more data validation
   if (data.password.length < 8) {
-
     toast.warn("Password too Short");
     return null;
   }
 
   try {
     await customFetch.post("/auth/login", data);
+    toast.success("Logged In Successfully");
     return redirect("/dashboard");
   } catch (errors) {
     errors.msg = "Invalid Credentials";
@@ -50,10 +50,7 @@ const Login = () => {
         </Link>
         {errors?.msg && <p style={{ color: "red" }}>{errors.msg}</p>}
         <FormRow type="email" name="email" defaultValue="you@example.com" />
-        <FormRow
-          type={showPassword ? "text" : "password"}
-          name="password"
-        />
+        <FormRow type={showPassword ? "text" : "password"} name="password" />
         <div>
           <input
             type="checkbox"
@@ -67,14 +64,13 @@ const Login = () => {
         <button type="submit" className="btn btn-block" disabled={isSubmitting}>
           {isSubmitting ? "Submitting . . ." : "Submit"}
         </button>
-      <p>
-        Not a member yet?
-        <Link to="/register" className="member-btn">
-          Register
-        </Link>
-      </p>
+        <p>
+          Not a member yet?
+          <Link to="/register" className="member-btn">
+            Register
+          </Link>
+        </p>
       </Form>
-
     </Wrapper>
   );
 };
