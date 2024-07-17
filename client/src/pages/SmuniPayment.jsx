@@ -28,7 +28,7 @@ export const loader = async ({ params }) => {
     const { data } = await customFetch.get(`/smuni/get/${params.id}`);
     return { data };
   } catch (error) {
-    toast.warn("Can't find Job to edit");
+    toast.warn("Can't find Checkout Link");
     return redirect("/dashboard");
   }
 };
@@ -59,11 +59,7 @@ const SmuniPayment = () => {
           <span className="font-bold">Amount: </span>
           {amount} Smunis
         </div>
-        <input
-          type="hidden"
-          name="smuni_payment_id"
-          value={smuni_payment_id}
-        />
+        <input type="hidden" name="smuni_payment_id" value={smuni_payment_id} />
         <input type="hidden" name="product_id" value={product_id} />
         <input type="hidden" name="user_id" value={user_id} />
         <input type="hidden" name="amount" value={amount} />

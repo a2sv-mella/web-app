@@ -38,8 +38,8 @@ const Transactions = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((transaction) => (
-              <tr key={transaction.payment_id} className="hover:bg-gray-50">
+            {data.map((transaction,index) => (
+              <tr key={index} className="hover:bg-gray-50">
                 <td className={`table-cell ${transaction.status ? 'status-completed' : 'status-pending'}`}>
                   {transaction.status ? "Completed" : "Pending"}
                 </td>

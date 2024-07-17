@@ -11,7 +11,7 @@ export { default as Pricing } from "./Pricing";
 export { default as Register } from "./Register";
 export { default as Services } from "./Services";
 export { default as DashboardLayout } from "./DashboardLayout";
-
+export { default as Shares } from "./Shares";
 export { default as Account } from "./Account";
 export { default as ApplyCrowdFund } from "./ApplyCrowdFund";
 export { default as Balance } from "./Balance";
