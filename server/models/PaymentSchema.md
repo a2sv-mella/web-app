@@ -1,6 +1,6 @@
 ```SQL
-
 CREATE TYPE payment_types AS ENUM ('smuni', 'payment', 'donation', 'crowdFund');
+
 
 CREATE TABLE payments (
     payment_id SERIAL PRIMARY KEY,

@@ -1,7 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import {
   About,
-  Balance,
+  Shares,
   Contact,
   Demos,
   Docs,
@@ -28,16 +28,19 @@ import { action as loginAction } from "./pages/Login";
 import { action as registerAction } from "./pages/Register";
 import { action as productAction } from "./pages/Product";
 import { action as accountAction } from "./pages/Account";
-import {action as campaignAction} from "./components/CreateCampaign";
+import { action as campaignAction } from "./components/CreateCampaign";
 import { action as smuniAction } from "./pages/Smuni";
 import { action as smuniPaymentAction } from "./pages/SmuniPayment";
+import { action as applyCrowdFundAction } from "./pages/ApplyCrowdFund";
 
 import { loader as dashboardLoader } from "./pages/DashboardLayout";
 import { loader as transactionLoader } from "./pages/Transactions";
 import { loader as crowdFundingLoader } from "./pages/UserCrowdfunding";
 import { loader as DeveloperCrowdfundingLoader } from "./pages/DeveloperCrowdfunding";
 import { loader as smuniPaymentLoader } from "./pages/SmuniPayment";
-// import { loader as productLoader } from "./pages/Product";
+import { loader as productLoader } from "./pages/Product";
+import { loader as ApplyCrowdFundLoader } from "./pages/ApplyCrowdFund";
+import { loader as sharesLoader } from "./pages/Shares";
 
 const router = createBrowserRouter([
   {
@@ -127,6 +130,11 @@ const router = createBrowserRouter([
             action: smuniAction,
           },
           {
+            path: "shares",
+            element: <Shares />,
+            loader: sharesLoader,
+          },
+          {
             path: "smuni-payment/:id",
             element: <SmuniPayment />,
             loader: smuniPaymentLoader,
@@ -135,6 +143,8 @@ const router = createBrowserRouter([
           {
             path: "apply-crowdfund/:id",
             element: <ApplyCrowdFund />,
+            loader: ApplyCrowdFundLoader,
+            action: applyCrowdFundAction,
           },
         ],
       },

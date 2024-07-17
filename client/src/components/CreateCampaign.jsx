@@ -1,36 +1,26 @@
-import React from "react";
-import { Form } from "react-router-dom";
+import { Form, redirect } from "react-router-dom";
 import customFetch from "../utils/customFetch";
-
-
+import { toast } from "react-toastify";
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
 
-  console.log(data);
 
   try {
-    // Assuming your backend endpoint for creating a campaign is '/campaigns/create'
-    const response = await customfetch("/campaigns/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // Include other headers as needed, for example, authorization headers
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
+    const response = await customFetch.post("/campaigns/create", data);
+    // console.log(response.status)
+    if (response.status !== 200 ) {
+      toast.warn("Failed to create campaign.");
+      return redirect("/dashboard");
     }
-
-    toast.success("Campaign created successfully.");
+    
+    toast.success("Campaign Created successfully.");
     return redirect(".");
   } catch (error) {
-    console.error("Error creating campaign:", error);
     toast.warn("Failed to create campaign.");
-    return { errors: { msg: "Failed to create campaign" } };
+    console.error("Error creating campaign:", error);
+    return redirect("/dashboard");
   }
 };
 
@@ -39,7 +29,7 @@ const CreateCampaign = () => {
     // <Form method="post">
     <div className=" mx-auto px-0 py-16">
       <h2 className="text-2xl font-bold mb-4 text-center">Create Campaign</h2>
-      <div className=" max-w-md mx-auto">
+      <div className="w-3/5 mx-auto max-w-full">
         <Form
           className="bg-blue-100 shadow-md rounded-lg p-6 space-y-4"
           method="post"
@@ -100,7 +90,7 @@ const CreateCampaign = () => {
               id="description"
               name="description"
               rows="4"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="mt-3 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               required
             ></textarea>
           </div>

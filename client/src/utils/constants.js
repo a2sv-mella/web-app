@@ -12,8 +12,13 @@ export const PRODUCT_TYPE = {
   CROWDFUNDED: "crowdfunded",
   PAID: "paid",
 };
-export const USER_PAGES = ["user-crowd", "smuni"];
-export const DEVELOPER_PAGES = ["product", "transactions", "developer-crowd", "balance"];
+export const USER_PAGES = ["user-crowd", "smuni", "shares"];
+export const DEVELOPER_PAGES = [
+  "product",
+  "transactions",
+  "developer-crowd",
+  "balance",
+];
 export const forDocs = [
   {
     title: "Overview",

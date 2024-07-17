@@ -6,33 +6,35 @@ const db = require("../models/db.js");
 
 const requestPromise = promisify(request);
 const initialize = async (req, res) => {
-
-
   try {
     // TODO : Validation on the req.body
     const key = req.headers.authorization;
     const product_id = req.body.product_id;
 
+    const developerQuery =
+      "SELECT developer_id FROM products WHERE product_id = $1";
+    const developerResult = await db.query(developerQuery, [product_id]);
+    const developer_id = developerResult.rows[0].developer_id;
 
+    const keyQuery =
+      "SELECT private_key, public_key FROM developers WHERE developer_id = $1";
+    const keyResult = await db.query(keyQuery, [developer_id]);
 
-    const developerQuery = "SELECT developer_id FROM products WHERE product_id = $1"
-    const developerResult = await db.query(developerQuery, [product_id])
-    const developer_id = developerResult.rows[0].developer_id
+    const private_key = keyResult.rows[0].private_key;
+    const public_key = keyResult.rows[0].public_key;
 
-    const keyQuery = "SELECT private_key, public_key FROM developers WHERE developer_id = $1"
-    const keyResult = await db.query(keyQuery, [developer_id])
-    
-    const private_key = keyResult.rows[0].private_key
-    const public_key = keyResult.rows[0].public_key
-
-
-    if (key !== private_key && key !== public_key) {
+    // TODO : fix logic here
+    if (
+      req.body.payment_type !== "crowdFund" &&
+      key !== private_key &&
+      key !== public_key
+    ) {
       res.status(StatusCodes.FORBIDDEN).json({ error: "Invalid Credentials" });
       return;
     }
 
     req.body.callback_url = process.env.MELLA_CALLBACK;
-    
+
     const options = {
       method: "POST",
       url: process.env.CHAPA_URL,
@@ -156,17 +158,36 @@ const verify = async (req, res) => {
       const response = await requestPromise(options);
     }
 
-  
     if (payment_type === "smuni") {
+      const smuniQuery = "SELECT user_id FROM smuni WHERE payment_id = $1";
+      const smuniResult = await db.query(smuniQuery, [payment_id]);
+      const user_id = smuniResult.rows[0].user_id;
 
-      const smuniQuery = "SELECT user_id FROM smuni WHERE payment_id = $1"
-      const smuniResult = await db.query(smuniQuery, [payment_id])
-      const user_id = smuniResult.rows[0].user_id
+      const increaseSmuni =
+        "UPDATE users SET smuni = smuni + $1 WHERE user_id = $2";
+      await db.query(increaseSmuni, [amount * 4, user_id]);
+    }
 
-      const increaseSmuni = "UPDATE users SET smuni = smuni + $1 WHERE user_id = $2"
-      await db.query(increaseSmuni, [amount * 4, user_id])
-  }
-    res.status(StatusCodes.OK).json({message: "Purchase successfully made"});
+    if (payment_type === "crowdFund") {
+      const fundQuery = `SELECT * from shares WHERE tx_ref = $1`;
+      const fundQueryData = await db.query(fundQuery, [tx_ref]);
+      const fundData = fundQueryData.rows[0];
+
+      // Update share status
+      const setFundsQuery = `UPDATE shares SET status = TRUE , payment_id = $1 WHERE share_id = $2`;
+      const setFundsQueryData = await db.query(setFundsQuery, [
+        transaction.payment_id,
+        fundData.share_id,
+      ]);
+
+      // Update campaign status.
+      const deductRemainingQuery = `UPDATE campaigns SET current_amount = current_amount + $1 WHERE product_id = $2`;
+      const queryResult = await db.query(deductRemainingQuery, [
+        amount,
+        fundData.product_id,
+      ]);
+    }
+    res.status(StatusCodes.OK).json({ message: "Purchase successfully made" });
   } catch (error) {
     console.error(error.stack);
     res

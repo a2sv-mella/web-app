@@ -1,57 +1,60 @@
 const { StatusCodes } = require("http-status-codes");
+const request = require("request");
+const { promisify } = require("util");
 const db = require("../models/db.js");
-const { query } = require("express");
 
+const requestPromise = promisify(request);
 const available = async (req, res) => {
   try {
-    // TODO: Implement available campaigns
-    // Retrieves the available campaigns from database.
     // Campaigns are considered available if the current amount is less than the goal amount.
-    const availableCampaignsQuery = `SELECT * FROM campaigns`;
+    // TODO : add validation to check if the time has not passed as well
+
+    const availableCampaignsQuery = `SELECT * FROM campaigns WHERE goal_amount > current_amount`;
     const availableCampaigns = await db.query(availableCampaignsQuery);
     const availableCampaignsResult = availableCampaigns.rows;
-    // console.log( availableCampaignsResult);
+
     let campaignsData = [];
+
     await Promise.all(
       availableCampaignsResult.map(async (element) => {
         const product_id = element.product_id;
         const created_At = element.created_at;
-        console.log(product_id);
 
-        const developerIdquery = `SELECT developer_id FROM products WHERE product_id = $1`;
-        const developerIdResult = await db.query(developerIdquery, [
-          product_id,
+        const productQuery = `SELECT developer_id,name,location FROM products WHERE product_id = $1`;
+        const productQueryData = await db.query(productQuery, [product_id]);
+        const productData = productQueryData.rows[0];
+
+        const developer_id = productData.developer_id;
+        const product_name = productData.name;
+        const location = productData.location;
+
+        const developerQuery = `SELECT user_id FROM developers WHERE developer_id = $1`;
+        const developerQueryResult = await db.query(developerQuery, [
+          developer_id,
         ]);
-        const developer_Id = developerIdResult.rows[0].developer_id;
+        const developer = developerQueryResult.rows[0];
 
-        const companyNameQuery = `SELECT name FROM products WHERE product_id = $1`;
-        const companyNameResult = await db.query(companyNameQuery, [
-          product_id,
+        const developer_user_id = developer.user_id;
+
+        const devDataQuery = `SELECT first_name,last_name FROM users WHERE user_id = $1`;
+        const devDataQueryResult = await db.query(devDataQuery, [
+          developer_user_id,
         ]);
-        const company_name = companyNameResult.rows[0].name;
+        const developerTableData = devDataQueryResult.rows[0];
 
-        const locationQuery = `SELECT location FROM products WHERE product_id = $1`;
-        const locationResult = await db.query(locationQuery, [product_id]);
-        const location = locationResult.rows[0].location;
-
-        const user_id = req.user.user_id;
-        const userQuery = `SELECT first_name, last_name FROM users WHERE user_id = $1`;
-        const userQueryResult = await db.query(userQuery, [user_id]);
-        const developer = userQueryResult.rows[0];
-        const name = developer.first_name + " " + developer.last_name;
+        const developer_name =
+          developerTableData.first_name + " " + developerTableData.last_name;
         campaignsData.push({
-          id: product_id,
-          developer: name,
+          product_id: product_id,
+          campaign_id: element.campaign_id,
+          developer: developer_name,
           location: location,
           createdAt: created_At,
-          company_name: company_name,
+          company_name: product_name,
         });
-        // console.log(campaignsData);
       })
     );
-    console.log(campaignsData);
     const data = { fundsFound: campaignsData };
-    console.log(data);
     res.status(StatusCodes.OK).json(data);
   } catch (error) {
     console.error(error.stack);
@@ -75,6 +78,7 @@ const find = async (req, res) => {
     const campaignQuery = "SELECT * FROM campaigns WHERE product_id =  $1 ";
     const campaignQueryResult = await db.query(campaignQuery, [product_id]);
     const campaign = campaignQueryResult.rows[0];
+
     res.status(StatusCodes.OK).json({ campaign });
   } catch (error) {
     console.error(error.stack);
@@ -83,44 +87,74 @@ const find = async (req, res) => {
       .json({ error: "Internal Server Error" });
   }
 };
-// create campiagn- create a new campaign according to the the campaign schema and return the created campaign
+const getter = async (req, res) => {
+  try {
+    const campaign_id = req.params.id;
+    // console.log(campaign_id);
+
+    const campaignQuery = "SELECT * FROM campaigns WHERE campaign_id = $1";
+    const campaignQueryResult = await db.query(campaignQuery, [campaign_id]);
+
+    const campaignData = campaignQueryResult.rows[0];
+    const product_id = campaignData.product_id;
+
+    const productQuery = "SELECT name FROM products WHERE product_id = $1";
+    const productQueryResult = await db.query(productQuery, [product_id]);
+
+    const productData = productQueryResult.rows[0];
+
+    const product_name = productData.name;
+    const goal = campaignData.goal_amount;
+    const current_amount = campaignData.current_amount;
+    const price_per_share = campaignData.price_per_share;
+    const description = campaignData.description;
+
+    const data = {
+      product_name,
+      product_id,
+      goal,
+      current_amount,
+      price_per_share,
+      description,
+    };
+
+    res.status(StatusCodes.OK).json({ data });
+  } catch (error) {
+    console.error(error.stack);
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ error: "Internal Server Error" });
+  }
+};
 const create = async (req, res) => {
   try {
-    // Extract data from request body
-    // select developer_id using user_id
     const user_id = req.user.user_id;
 
     const developerQuery =
       "SELECT developer_id FROM developers WHERE user_id = $1";
     const developerQueryResult = await db.query(developerQuery, [user_id]);
     const developer_id = developerQueryResult.rows[0].developer_id;
+
     const productQuery =
       "SELECT product_id FROM products WHERE developer_id = $1";
     const productQueryResult = await db.query(productQuery, [developer_id]);
     const product_id = productQueryResult.rows[0].product_id;
-    const {
-      goal_amount,
-      price_per_share,
 
-      end_date,
-      description,
-    } = req.body;
+    const { amount, price_per_share, end_date, description } = req.body;
+    const goal_amount = price_per_share * amount;
 
-    // Optional: Validate data here
+    // TODO: Validate data here
 
-    // Insert data into database
     const insertcampaignQuery =
       "INSERT INTO campaigns (product_id, goal_amount,price_per_share, end_date, description) VALUES ($1, $2, $3, $4, $5)";
     const campaignData = await db.query(insertcampaignQuery, [
       product_id,
       goal_amount,
       price_per_share,
-
       end_date,
       description,
     ]);
-    console.log(campaignData.rows[0]);
-    // Send success response
+
     res.status(StatusCodes.OK).json({
       message: "Campaign created successfully",
     });
@@ -133,20 +167,77 @@ const create = async (req, res) => {
   }
 };
 
-const proceedToPayment = async (req, res) => {
+const buyCampaign = async (req, res) => {
   try {
-    // Extract data from request body
-    const { campaign_id, amount } = req.body;
+    const { shares, product_id, price_per_share } = req.body;
+    const user_id = req.user["user_id"];
 
-    // Optional: Validate data here
+    if (shares === 0) {
+      res.status(StatusCodes.FORBIDDEN).json({ error: "Empty Shares" });
+    }
 
-    // Proceed to payment gateway
+    const random = Math.floor(Math.random() * 10000);
+    const currentTime = new Date().getTime();
+
+    const tx_ref = `melatest-${random}-${currentTime}-${user_id}-${product_id}`;
+
+    const query =
+      "SELECT first_name,last_name,email,phone_number FROM users WHERE user_id = $1";
+    const userQueryData = await db.query(query, [user_id]);
+    const userData = userQueryData.rows[0];
+    const { email, first_name, last_name, phone_number } = userData;
+
+    const price = price_per_share * shares;
+    const data = {
+      amount: price,
+      currency: "ETB",
+      user_id: user_id,
+      email: email,
+      first_name: first_name,
+      last_name: last_name,
+      phone_number: "0913405421",
+      product_id: product_id,
+      developer_id: 1,
+      payment_type: "crowdFund",
+      tx_ref: tx_ref,
+      customization: {
+        title: "Mella Crowd Fund",
+        description: `To buy ${shares} shares from Mella.`,
+      },
+    };
+
+    req.body.callback_url = process.env.MELLA_CALLBACK;
+
+    authQuery = "SELECT private_key FROM developers WHERE developer_id = $1";
+    const authResult = await db.query(authQuery, [data.developer_id]);
+    const private_key = authResult.rows[0].private_key;
+    const options = {
+      method: "POST",
+      url: process.env.MELLA_INITIALIZE,
+      headers: {
+        authorization: private_key,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+
+    const response = await requestPromise(options);
+    const jsonResponse = JSON.parse(response.body);
+
+    const fundInsertQuery = `INSERT INTO shares (user_id,product_id,amount_of_share,tx_ref) VALUES ($1,$2,$3,$4)`;
+    const fundInsertQueryResult = await db.query(fundInsertQuery, [
+      user_id,
+      product_id,
+      shares,
+      tx_ref,
+    ]);
+
+    res.send(jsonResponse);
   } catch (error) {
-    // Send error response
-    res.status(500).json({
-      message: "Error proceeding to payment",
-      error: error.message,
-    });
+    console.error(error.stack);
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ error: "Internal Server Error" });
   }
 };
 const updateShare = async (req, res) => {
@@ -197,4 +288,11 @@ const updateShare = async (req, res) => {
   }
 };
 
-module.exports = { available, find, proceedToPayment, create, updateShare };
+module.exports = {
+  available,
+  find,
+  create,
+  updateShare,
+  getter,
+  buyCampaign,
+};

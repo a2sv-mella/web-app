@@ -7,7 +7,7 @@ import { FaLocationArrow, FaCalendarAlt } from "react-icons/fa";
 import Wrapper from "../assets/wrappers/CrowdFund";
 import CrowdFundInfo from "./CrowdFundInfo";
 
-const CrowdFund = ({ id, developer, company_name, location, createdAt }) => {
+const CrowdFund = ({ campaign_id, developer, company_name, location, createdAt }) => {
   const date = day(createdAt).format("MMM Do, YYYY");
   return (
     <Wrapper>
@@ -27,7 +27,7 @@ const CrowdFund = ({ id, developer, company_name, location, createdAt }) => {
           <CrowdFundInfo icon={<FaCalendarAlt />} text={date}></CrowdFundInfo>
         </div>
         <footer className="actions">
-          <Link to={`../apply-crowdfund/${id}`} className="btn apply-btn">
+          <Link to={`../apply-crowdfund/${campaign_id}`} className="btn apply-btn">
             Buy Share
           </Link>
         </footer>

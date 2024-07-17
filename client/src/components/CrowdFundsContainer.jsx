@@ -5,7 +5,6 @@ import CrowdFund from "./CrowdFund";
 const CrowdFundsContainer = () => {
   const { data } = useCrowdContext();
   const { fundsFound } = data;
-  console.log(fundsFound);
 
   if (fundsFound?.length === 0) {
     return (
@@ -18,7 +17,8 @@ const CrowdFundsContainer = () => {
     <Wrapper>
       <div className="crowd-funds">
         {fundsFound.map((fund) => {
-          return <CrowdFund key={fund.id} {...fund} />;
+          const campaign_id = fund.campaign_id;
+          return <CrowdFund key={campaign_id} {...fund} />;
         })}
       </div>
     </Wrapper>

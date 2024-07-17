@@ -14,6 +14,7 @@ const userRouter = require("./routes/userRouter");
 const transRouter = require("./routes/transactionRouter");
 const productRouter = require("./routes/productRouter");
 const smuniRouter = require("./routes/smuniRouter");
+const sharesRouter = require("./routes/sharesRouter");
 
 const {
   authenticateUser,
@@ -47,6 +48,11 @@ app.use(
   authenticateUser,
   authenticateDeveloper,
   transRouter
+);
+app.use(
+  "/api/v1/shares",
+  authenticateUser,
+  sharesRouter
 );
 app.use("/api/v1/payments",paymentRouter);
 app.use("/api/v1/smuni", authenticateUser,smuniRouter);
