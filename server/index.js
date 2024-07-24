@@ -5,6 +5,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const path = require("path");
 const { body, validationResult } = require("express-validator");
 
 const authRouter = require("./routes/authRouter");
@@ -36,10 +37,19 @@ const corsOptions = {
   credentials: true,
 };
 
+// console.log(process.env.DEPLOYMENT_URL);
+// const corsOptions = {
+//   origin: process.env.DEPLOYMENT_URL,
+//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//   allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept",
+//   credentials: true,
+// };
+
 app.use(cors(corsOptions));
 app.use(cookieParser());
 
 app.use("/api/v1/auth", authRouter);
+app.use(express.static(path.join(__dirname, "build")));
 
 // If a user is a developer doesn't it mean he is a user ?
 // maybe we can you authenticateDeveloper only.
@@ -49,13 +59,9 @@ app.use(
   authenticateDeveloper,
   transRouter
 );
-app.use(
-  "/api/v1/shares",
-  authenticateUser,
-  sharesRouter
-);
-app.use("/api/v1/payments",paymentRouter);
-app.use("/api/v1/smuni", authenticateUser,smuniRouter);
+app.use("/api/v1/shares", authenticateUser, sharesRouter);
+app.use("/api/v1/payments", paymentRouter);
+app.use("/api/v1/smuni", authenticateUser, smuniRouter);
 app.use("/api/v1/campaigns", authenticateUser, campaignRouter);
 app.use("/api/v1/users", authenticateUser, userRouter);
 app.use(
@@ -64,6 +70,10 @@ app.use(
   authenticateDeveloper,
   productRouter
 );
+
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "build/index.html"));
+// });
 
 app.use("*", (req, res) => {
   res.status(404).json({ msg: "not found" });
