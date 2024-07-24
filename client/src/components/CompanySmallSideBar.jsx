@@ -8,11 +8,7 @@ const CompanySmallSidebar = () => {
   const { showSidebar, toggleSidebar } = useCompanyContext();
   return (
     <Wrapper>
-      <div
-        className={
-          showSidebar ? "sidebar-container show-sidebar" : "sidebar-container"
-        }
-      >
+      <div className={`sidebar-container ${showSidebar ? "show-sidebar" : ""}`}>
         <div className="content">
           <button type="button" className="close-btn" onClick={toggleSidebar}>
             <FaTimes />
@@ -21,22 +17,46 @@ const CompanySmallSidebar = () => {
             <Logo />
           </header>
           <div className="nav-links">
-            <Link to="/company/pricing" className="top-btn btn">
+            <Link
+              onClick={toggleSidebar}
+              to="/company/pricing"
+              className="top-btn btn"
+            >
               Pricing
             </Link>
-            <Link to="/company/services" className="top-btn btn">
+            <Link
+              onClick={toggleSidebar}
+              to="/company/services"
+              className="top-btn btn"
+            >
               Services
             </Link>
-            <Link to="/company/docs" className="top-btn btn">
+            <Link
+              onClick={toggleSidebar}
+              to="/company/docs"
+              className="top-btn btn"
+            >
               Docs
             </Link>
-            <Link to="/company/demo" className="top-btn btn">
+            <Link
+              onClick={toggleSidebar}
+              to="/company/demo"
+              className="top-btn btn"
+            >
               Demo
             </Link>
-            <Link to="/company/about" className="top-btn btn">
+            <Link
+              onClick={toggleSidebar}
+              to="/company/about"
+              className="top-btn btn"
+            >
               About Us
             </Link>
-            <Link to="/company/contact" className="top-btn btn">
+            <Link
+              onClick={toggleSidebar}
+               vto="/company/contact"
+              className="top-btn btn"
+            >
               Contact Us
             </Link>
           </div>

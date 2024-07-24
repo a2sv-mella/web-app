@@ -1,5 +1,5 @@
 import ServiceCard from "./ServiceCard";
-import { aboutCards, aboutPara } from "../utils/constants";
+import { aboutCards } from "../utils/constants";
 const AboutBody = () => {
   return (
     <div className="container mx-auto px-4 py-16">
