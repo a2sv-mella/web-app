@@ -4,7 +4,7 @@ import Wrapper from "../assets/wrappers/LandingPage";
 import main1 from "../assets/images/main1.svg";
 import { LandingPageSmallSideBar } from "../components";
 import { FaAlignLeft } from "react-icons/fa";
-import logo from "../assets/images/mella.png";
+// import logo from "../assets/images/mella.png";
 
 const LandingPageContext = createContext();
 

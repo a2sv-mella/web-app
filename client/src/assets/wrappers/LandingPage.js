@@ -54,7 +54,6 @@ const Wrapper = styled.section`
   }
   .btn {
     padding: 0.75rem 1rem;
-    color: var(--primary-color);
     font-weight: bold;
   }
   .top-btn {

@@ -1,13 +1,12 @@
+import { FaTimes } from "react-icons/fa";
+import { Link } from "react-router-dom";
+
 import Wrapper from "../assets/wrappers/SmallSidebar";
 import { useLandingPageContext } from "../pages/Landing";
-import { useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
 import Logo from "./Logo";
-import { FaTimes } from "react-icons/fa";
 
 const LandingPageSmallSidebar = () => {
   const { showSidebar, toggleSidebar } = useLandingPageContext();
-  const location = useLocation();
   return (
     <Wrapper>
       <div
@@ -23,64 +22,22 @@ const LandingPageSmallSidebar = () => {
             <Logo />
           </header>
           <div className="nav-links">
-            <Link
-              to="/company/pricing"
-              className={`nav-link btn ${
-                "/company/pricing" === location?.pathname
-                  ? "top-btn"
-                  : "top-btn-inactive"
-              }`}
-            >
+            <Link to="/company/pricing" className={`center-text btn top-btn`}>
               Pricing
             </Link>
-            <Link
-              to="/company/services"
-              className={`nav-link btn ${
-                "/company/services" === location?.pathname
-                  ? "top-btn"
-                  : "top-btn-inactive"
-              }`}
-            >
+            <Link to="/company/services" className={`center-text btn top-btn`}>
               Services
             </Link>
-            <Link
-              to="/company/docs"
-              className={`nav-link btn ${
-                "/company/docs" === location?.pathname
-                  ? "top-btn"
-                  : "top-btn-inactive"
-              }`}
-            >
+            <Link to="/company/docs" className={`center-text btn top-btn`}>
               Docs
             </Link>
-            <Link
-              to="/company/demo"
-              className={`nav-link btn ${
-                "/company/demo" === location?.pathname
-                  ? "top-btn"
-                  : "top-btn-inactive"
-              }`}
-            >
+            <Link to="/company/demo" className={`center-text btn top-btn`}>
               Demo
             </Link>
-            <Link
-              to="/company/about"
-              className={`nav-link btn ${
-                "/company/about" === location?.pathname
-                  ? "top-btn"
-                  : "top-btn-inactive"
-              }`}
-            >
+            <Link to="/company/about" className={`center-text btn top-btn`}>
               About Us
             </Link>
-            <Link
-              to="/company/contact"
-              className={`nav-link btn ${
-                "/company/contact" === location?.pathname
-                  ? "top-btn"
-                  : "top-btn-inactive"
-              }`}
-            >
+            <Link to="/company/contact" className={`center-text btn top-btn`}>
               Contact Us
             </Link>
           </div>
